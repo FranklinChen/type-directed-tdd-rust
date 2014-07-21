@@ -1,4 +1,4 @@
-## Type-directed [TDD](http://en.wikipedia.org/wiki/Test-driven_development) in [Rust]((http://www.rust-lang.org/)
+## Type-directed [TDD](http://en.wikipedia.org/wiki/Test-driven_development) in [Rust](http://www.rust-lang.org/)
 
 [![Build Status](https://travis-ci.org/FranklinChen/type-directed-tdd-rust.png)](https://travis-ci.org/FranklinChen/type-directed-tdd-rust)
 
@@ -25,7 +25,9 @@ In particular, the type-directed TDD work flow leans heavily on [property-based 
 
 ### Caveats
 
-Rust is still not at version 1.0 yet, and many things I wanted to do were not yet properly supported as of the date of the presentation. The type system is still being worked out. Best practices are still being worked out for how to make decisions about memory ownership, cloning, etc.
+Rust is still not at version 1.0 yet, and many things I wanted to do were not yet properly supported as of the date of the presentation. The type system is still being worked out. Best practices are still being worked out for how to make decisions about memory placement for all data.
+
+The lack of the kind of closure support I wanted meant that I did not implement a *compiler* but instead an *interpreter*. I'm leaving the transformation into a compiler for later. It does bring up questions of memory ownership and sharing.
 
 I will update the code as various language constructs and libraries become available, and as I understand Rust better. Rust feels very much like programming in C, ironically, except that memory layout and management is exposed in the type system.
 
