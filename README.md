@@ -2,17 +2,6 @@
 
 [![Build Status](https://travis-ci.org/FranklinChen/type-directed-tdd-rust.png)](https://travis-ci.org/FranklinChen/type-directed-tdd-rust)
 
-Unfortunately, the Travis build seems to be failing right now, although the versions of Rust and Cargo I have on my Mac are working just fine.
-
-```
-Updating git repository `https://github.com/BurntSushi/quickcheck`
-Compiling quickcheck_macros v0.1.0 (https://github.com/BurntSushi/quickcheck)
-Compiling quickcheck v0.1.0 (https://github.com/BurntSushi/quickcheck)
-Compiling type-directed-tdd-rust v0.1.0 (file:/home/travis/build/FranklinChen/type-directed-tdd-rust)
-/home/travis/build/FranklinChen/type-directed-tdd-rust/src/main.rs:10:1: 10:32 error: plugin crate `quickcheck_macros` only found in rlib format, but must be available in dylib format
-/home/travis/build/FranklinChen/type-directed-tdd-rust/src/main.rs:10 extern crate quickcheck_macros;
-```
-
 ### Info
 
 This repository contains material for my presentation ["Type-Directed TDD in Rust"](http://www.meetup.com/Pittsburgh-Code-Supply/events/183483622/) given at CMU on Monday, July 21, 2014, for the [Pittsburgh Code and Supply](http://www.codeandsupply.co/) meetup.
