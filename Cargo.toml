@@ -1,0 +1,15 @@
+[package]
+
+name = "type-directed-tdd-rust"
+version = "0.1.0"
+authors = ["franklinchen@franklinchen.com"]
+
+[[bin]]
+
+name = "main"
+
+[dependencies.quickcheck]
+git = "https://github.com/BurntSushi/quickcheck"
+
+[dependencies.quickcheck_macros]
+git = "https://github.com/BurntSushi/quickcheck"

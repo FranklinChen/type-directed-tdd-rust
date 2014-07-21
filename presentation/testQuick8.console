@@ -1,0 +1,4 @@
+error: this function takes 2 parameters
+  but 1 parameter was supplied
+Config(vec![(3, "Fizz".to_string()),
+            (5, "Buzz".to_string())])

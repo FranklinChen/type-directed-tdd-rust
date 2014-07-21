@@ -1,0 +1,11 @@
+mismatched types: expected `Option<String>` but found
+                                             `String`
+  if i % n == 0 {
+    (*word).clone()
+  } else {
+    String::new()
+  }
+
+failed to find an implementation of trait Str for
+                                   Option<String>
+  result + s

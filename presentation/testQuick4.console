@@ -1,0 +1,3 @@
+$ cargo test
+.../src/fizzbuzz.rs:16:5: 21:6 error:
+non-exhaustive patterns: `(false, false)` not covered

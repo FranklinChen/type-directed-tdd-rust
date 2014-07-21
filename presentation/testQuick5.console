@@ -1,0 +1,2 @@
+$ cargo test
+test test::test_1_to_16 ... ok

@@ -1,0 +1,3 @@
+$ cargo test
+task 'test::test_1_to_16' failed at 'write run_to_seq',
+...src/main.rs:37

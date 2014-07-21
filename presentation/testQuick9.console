@@ -1,0 +1,4 @@
+$ cargo test
+task 'fizzbuzz::test::d1_but_not_d2' failed at
+  '[quickcheck] TEST FAILED.
+  Arguments: ((2, ), (3, ), 2)'

@@ -1,0 +1,3 @@
+$ cargo build
+src/main.rs:16:19:
+error: unresolved name `run_to_seq`

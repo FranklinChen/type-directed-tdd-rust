@@ -1,0 +1,4 @@
+$ cargo test
+task 'fizzbuzz::test::test_15' failed at
+  'assertion failed: `(left == right) && (right == left)`
+  (left: `Fizz`, right: `FizzBuzz`)', .../src/fizzbuzz.rs:21
