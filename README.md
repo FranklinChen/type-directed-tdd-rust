@@ -12,7 +12,7 @@ For the version of the materials as of the *actual presentation*, you can read t
 
 #### Important code improvement after the talk!
 
-Thanks to @alexcrichton, I started a new branch [`using-str`](https://github.com/FranklinChen/type-directed-tdd-rust/tree/using-str) that replaces my clumsy overuse of `String` with the type `&'a str` instead. The new code is much cleaner and does fewer memory allocations as well. You can see the diffs in the commit 6db41f90b522dc3d814dc10fbfa014d1a13e4e05.
+Thanks to @alexcrichton, I started a new branch [`using-str`](https://github.com/FranklinChen/type-directed-tdd-rust/tree/using-str) that replaces my clumsy overuse of `String` with the type `&'a str` instead. The new code is much cleaner and does fewer memory allocations as well. You can see the diffs in [this commit](https://github.com/FranklinChen/type-directed-tdd-rust/commit/6db41f90b522dc3d814dc10fbfa014d1a13e4e05).
 
 The original code will always be available on branch [`meetup`](https://github.com/FranklinChen/type-directed-tdd-rust/tree/meetup), but I will continue to update the article and slides on the `master` branch.
 
