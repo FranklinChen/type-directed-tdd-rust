@@ -1,3 +1,4 @@
+pub type Pair = (int, String);
 pub struct Config(pub Pair, pub Pair);
 
 pub fn evaluate(Config((d1, w1), (d2, w2)): Config, i: int)
