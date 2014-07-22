@@ -3,7 +3,7 @@ pub fn evaluate(Config(pairs): Config, i: int)
   let combined: String = pairs.iter()
             .map(|pair| rule(pair, i))
             .fold(String::new(),
-                  |result, s| result + s);
+                  |result, s| result.append(s.as_slice()));
   if combined.is_empty() {
     i.to_string()
   } else {

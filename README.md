@@ -27,6 +27,8 @@ Documents:
 
 Thanks to [Alex Crichton](https://github.com/alexcrichton), I created a new branch [`using-str`](https://github.com/FranklinChen/type-directed-tdd-rust/tree/using-str) that replaces my clumsy overuse of `String` with the type `&'a str` instead. The new code is much cleaner and does fewer memory allocations as well, and makes clear where new strings are allocated with `to_string()`. You can see the diffs in [this commit](https://github.com/FranklinChen/type-directed-tdd-rust/commit/6db41f90b522dc3d814dc10fbfa014d1a13e4e05).
 
+Thanks to feedback on the [Reddit discussion](http://www.reddit.com/r/rust/comments/2bcwua/type_driven_tdd_in_rust/), I learned of another optimization: using `String` `append()`, which cleverly reuses an existing buffer and saves on memory allocations and gives linear concatenation.
+
 I've made the `master` branch reflect the cleanest working version I have on hand of any code and accompanying presentation materials.
 
 Documents:

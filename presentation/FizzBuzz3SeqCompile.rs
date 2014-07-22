@@ -7,7 +7,7 @@ pub fn evaluate(Config(pairs): Config, i: int)
   match (i % d1 == 0, i % d2 == 0) {
     (true,  false) => w1.to_string(),
     (false, true)  => w2.to_string(),
-    (true,  true)  => w1.to_string() + w2,
+    (true,  true)  => w1.to_string().append(w2),
     (false, false) => i.to_string(),
   }
 }
