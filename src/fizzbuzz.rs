@@ -1,10 +1,10 @@
 // -*- rust-indent-offset: 2 -*-
 // More compact, just for slides.
 
-pub type Pair = (int, String);
+pub type Pair<'a> = (int, &'a str);
 
 #[deriving(Show, Clone)]
-pub struct Config(pub Vec<Pair>);
+pub struct Config<'a>(pub Vec<Pair<'a>>);
 
 static DIVISOR_MIN: int = 2;
 static DIVISOR_MAX: int = 100;
@@ -16,7 +16,7 @@ fn validate_pair(&(d, _): &Pair) {
           "divisor {} must be <= {}", d, DIVISOR_MAX);
 }
 
-impl Config {
+impl<'a> Config<'a> {
   pub fn new(pairs: Vec<Pair>) -> Config {
     for pair in pairs.iter() {
       validate_pair(pair);
@@ -25,9 +25,10 @@ impl Config {
   }
 }
 
-fn rule(&(n, ref word): &Pair, i: int) -> Option<String> {
+// Make the decision to allocate a String here.
+fn rule(&(n, word): &Pair, i: int) -> Option<String> {
   if i % n == 0 {
-    Some((*word).clone())
+    Some(word.to_string())
   } else {
     None
   }
@@ -54,7 +55,7 @@ pub fn evaluate(Config(pairs): Config, i: int)
 
 #[cfg(test)]
 mod test {
-  use super::{DIVISOR_MIN, DIVISOR_MAX, Pair, Config, evaluate};
+  use super::{DIVISOR_MIN, DIVISOR_MAX, Config, evaluate};
   use quickcheck::TestResult;
 
 /*
@@ -78,15 +79,13 @@ mod test {
   // TODO nest the checks, staging the check of i.
   // Trivial in Scala and Haskell.
   #[quickcheck]
-  fn d1_but_not_d2(p1: Pair,
-                   p2: Pair,
+  fn d1_but_not_d2((d1, w1): (int, String),
+                   (d2, w2): (int, String),
                    i: int) -> TestResult {
-    let (d1, w1) = p1.clone();
-    let (d2, _) = p2;
-
     if (d1 >= DIVISOR_MIN && d1 <= DIVISOR_MAX)
       && (d2 >= DIVISOR_MIN && d2 <= DIVISOR_MAX) {
-      let config = Config::new(vec![p1, p2]);
+      let config = Config::new(vec![(d1, w1.as_slice()),
+                                    (d2, w2.as_slice())]);
       
       if i % d1 == 0 && i % d2 != 0 {
         TestResult::from_bool(evaluate(config, i) == w1)
