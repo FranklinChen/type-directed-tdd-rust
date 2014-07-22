@@ -6,6 +6,8 @@
 
 This repository contains material for my presentation ["Type-Directed TDD in Rust"](http://www.meetup.com/Pittsburgh-Code-Supply/events/183483622/) given at CMU on Monday, July 21, 2014, for the [Pittsburgh Code and Supply](http://www.codeandsupply.co/) meetup.
 
+You can read the [article version](https://github.com/FranklinChen/type-directed-tdd-rust/blob/master/presentation/article.pdf). or look at the less complete [slides](https://github.com/FranklinChen/type-directed-tdd-rust/blob/master/presentation/presentation.pdf).
+
 I ported this presentation from an [earlier presentation](https://github.com/FranklinChen/talk-on-type-directed-tdd-using-fizzbuzz) I gave at [Pittsburgh TechFest](http://pghtechfest.com/) 2014 that originally used the language [Scala](http://scala-lang.org/) for exposition (with some [Swift](http://developer.apple.com/swift/) as an addendum). I welcomed the opportunity to create a [Rust](http://www.rust-lang.org/) version of the presentation in order to show that the main ideas and work flow are *not* language-dependent, but apply to any sufficiently modern *statically [typed](http://en.wikipedia.org/wiki/Type_system)* programming language with a good set of testing libraries.
 
 ### Property-based testing
