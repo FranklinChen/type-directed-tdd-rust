@@ -740,7 +740,7 @@
 
   \begin{block}{Transforming information}
     \begin{itemize}
-    \item To \mintinline{rust}{Option[String]}: \mintinline{rust}{if i % n == 0 { Some((*word).clone()) } else { None }}
+    \item To \mintinline{rust}{Option[String]}: \mintinline{rust}{if i % n == 0 { Some(word.to_string()) } else { None }}
     \item Back to \mintinline{rust}{String}: \mintinline{rust}{combined.unwrap_or_else(|| i.to_string())}
     \end{itemize}
   \end{block}

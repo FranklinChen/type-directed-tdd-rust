@@ -7,7 +7,7 @@ fn validate_pair(&(d, _): &Pair) {
           "divisor {} must be <= {}", d, DIVISOR_MAX);
 }
 
-impl Config {
+impl<'a> Config<'a> {
   pub fn new(pair1: Pair, pair2: Pair) -> Config {
     validate_pair(&pair1); validate_pair(&pair2);
     Config(pair1, pair2)

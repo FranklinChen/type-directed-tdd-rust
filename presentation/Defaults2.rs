@@ -1,7 +1,7 @@
-fn fizzbuzzpopper_config() -> Config {
-  Config::new(vec![(3, "Fizz".to_string()),
-                   (5, "Buzz".to_string()),
-                   (7, "Pop".to_string())])
+fn fizzbuzzpopper_config<'a>() -> Config<'a> {
+  Config::new(vec![(3, "Fizz"),
+                   (5, "Buzz"),
+                   (7, "Pop")])
 }
 
 pub fn fizzbuzzpopper(i: int) -> String {

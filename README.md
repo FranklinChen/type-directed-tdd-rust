@@ -8,17 +8,31 @@ This repository contains material for my presentation ["Type-Directed TDD in Rus
 
 I ported this presentation from an [earlier presentation](https://github.com/FranklinChen/talk-on-type-directed-tdd-using-fizzbuzz) I gave at [Pittsburgh TechFest](http://pghtechfest.com/) 2014 that originally used the language [Scala](http://scala-lang.org/) for exposition (with some [Swift](http://developer.apple.com/swift/) as an addendum). I welcomed the opportunity to create a [Rust](http://www.rust-lang.org/) version of the presentation in order to show that the main ideas and work flow are *not* language-dependent, but apply to any sufficiently modern *statically [typed](http://en.wikipedia.org/wiki/Type_system)* programming language with a good set of testing libraries.
 
-For the version of the materials as of the *actual presentation*, you can read the [article version](https://github.com/FranklinChen/type-directed-tdd-rust/blob/meetup/presentation/article.pdf). or look at the less complete [slides](https://github.com/FranklinChen/type-directed-tdd-rust/blob/meetup/presentation/presentation.pdf).
-
-#### Important code improvement after the talk!
-
-Thanks to @alexcrichton, I started a new branch [`using-str`](https://github.com/FranklinChen/type-directed-tdd-rust/tree/using-str) that replaces my clumsy overuse of `String` with the type `&'a str` instead. The new code is much cleaner and does fewer memory allocations as well. You can see the diffs in [this commit](https://github.com/FranklinChen/type-directed-tdd-rust/commit/6db41f90b522dc3d814dc10fbfa014d1a13e4e05).
-
-The original code will always be available on branch [`meetup`](https://github.com/FranklinChen/type-directed-tdd-rust/tree/meetup), but I will continue to update the article and slides on the `master` branch.
-
 ### Property-based testing
 
 In particular, the type-directed TDD work flow leans heavily on [property-based testing](http://en.wikipedia.org/wiki/QuickCheck), a way of concisely specifying properties that result in automatically generated tests. The Rust code uses the [QuickCheck](https://github.com/BurntSushi/quickcheck) property-based testing framework.
+
+### Code, article, and slides
+
+#### As actually presented on 2014-07-21
+
+The branch [`meetup`](https://github.com/FranklinChen/type-directed-tdd-rust/tree/meetup) will always contain the version of the materials as of the *actual presentation* (with only minor typos fixed).
+
+Documents:
+
+- [article](https://github.com/FranklinChen/type-directed-tdd-rust/blob/meetup/presentation/article.pdf)
+- [slides](https://github.com/FranklinChen/type-directed-tdd-rust/blob/meetup/presentation/presentation.pdf)
+
+#### Important improvements after the talk!
+
+Thanks to [Alex Crichton](https://github.com/alexcrichton), I created a new branch [`using-str`](https://github.com/FranklinChen/type-directed-tdd-rust/tree/using-str) that replaces my clumsy overuse of `String` with the type `&'a str` instead. The new code is much cleaner and does fewer memory allocations as well, and makes clear where new strings are allocated with `to_string()`. You can see the diffs in [this commit](https://github.com/FranklinChen/type-directed-tdd-rust/commit/6db41f90b522dc3d814dc10fbfa014d1a13e4e05).
+
+I've made the `master` branch reflect the cleanest working version I have on hand of any code and accompanying presentation materials.
+
+Documents:
+
+- [article](https://github.com/FranklinChen/type-directed-tdd-rust/blob/master/presentation/article.pdf)
+- [slides](https://github.com/FranklinChen/type-directed-tdd-rust/blob/master/presentation/presentation.pdf)
 
 ### Caveats
 
