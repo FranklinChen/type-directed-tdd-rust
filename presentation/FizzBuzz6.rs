@@ -1,2 +1,2 @@
-// rule was: (&Pair, int) -> String
-//      now: (&Pair, int) -> Option<String>
+// rule type was: |&Pair, int| -> String
+//    changed to: |&Pair, int| -> Option<String>

@@ -1,10 +1,8 @@
-// Rust limitation: cannot be static variable
-// because Config stores String.
-fn fizzbuzzer_config<'a>() -> Config<'a> {
+// We can store a static Config as in C.
+static fizzbuzzer_config: Config<'static> =
   Config((3, "Fizz"),
-         (5, "Buzz"))
-}
+         (5, "Buzz"));
 
 pub fn fizzbuzzer(i: int) -> String {
-  fizzbuzz::evaluate(fizzbuzzer_config(), i)
+  fizzbuzz::evaluate(fizzbuzzer_config, i)
 }

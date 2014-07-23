@@ -27,18 +27,19 @@ fn old_fizzbuzzer(i: int) -> String {
   }
 }
 
-// Rust limitation: cannot be static variable
-// because Config stores String.
+// Cannot be static variable because of runtime
+// validation and also use of Vector.
 fn fizzbuzzer_config<'a>() -> Config<'a> {
   Config::new(vec![(3, "Fizz"),
                    (5, "Buzz")])
 }
 
-// TODO Avoid repeatedly creating config.
 pub fn fizzbuzzer(i: int) -> String {
   fizzbuzz::evaluate(fizzbuzzer_config(), i)
 }
 
+// Cannot be static variable because of runtime
+// validation and also use of Vector.
 fn fizzbuzzpopper_config<'a>() -> Config<'a> {
   Config::new(vec![(3, "Fizz"),
                    (5, "Buzz"),

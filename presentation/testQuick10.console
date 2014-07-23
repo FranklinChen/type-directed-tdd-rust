@@ -1,7 +1,7 @@
 mismatched types: expected `Option<String>` but found
                                              `String`
   if i % n == 0 {
-    (*word).clone()
+    word.to_string()
   } else {
     String::new()
   }
