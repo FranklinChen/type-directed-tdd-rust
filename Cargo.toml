@@ -6,7 +6,7 @@ authors = ["franklinchen@franklinchen.com"]
 
 [[bin]]
 
-name = "main"
+name = "fizzbuzz"
 
 [dependencies.quickcheck]
 git = "https://github.com/BurntSushi/quickcheck"

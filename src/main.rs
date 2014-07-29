@@ -24,7 +24,7 @@ mod defaults;
 ///   print "Buzz".
 /// For numbers which are multiples of both three and five,
 ///   print "FizzBuzz".
-#[allow(dead_code)]
+#[cfg(not(test))]
 fn main() {
   for result in run_to_seq(1i, 100).iter() {
     println!("{}", result)
