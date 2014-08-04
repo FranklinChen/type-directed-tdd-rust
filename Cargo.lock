@@ -1,0 +1,21 @@
+[root]
+name = "type-directed-tdd-rust"
+version = "0.1.0"
+dependencies = [
+ "quickcheck 0.1.0 (git+https://github.com/BurntSushi/quickcheck#ae5af3a62a3b30566f3c95f969d330a2610bd976)",
+ "quickcheck_macros 0.1.0 (git+https://github.com/BurntSushi/quickcheck#ae5af3a62a3b30566f3c95f969d330a2610bd976)",
+]
+
+[[package]]
+name = "quickcheck"
+version = "0.1.0"
+source = "git+https://github.com/BurntSushi/quickcheck#ae5af3a62a3b30566f3c95f969d330a2610bd976"
+dependencies = [
+ "quickcheck_macros 0.1.0 (git+https://github.com/BurntSushi/quickcheck#ae5af3a62a3b30566f3c95f969d330a2610bd976)",
+]
+
+[[package]]
+name = "quickcheck_macros"
+version = "0.1.0"
+source = "git+https://github.com/BurntSushi/quickcheck#ae5af3a62a3b30566f3c95f969d330a2610bd976"
+
