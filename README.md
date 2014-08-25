@@ -49,6 +49,6 @@ I will update the code as various language constructs and libraries become avail
 You need to install Rust with [Cargo](http://crates.io/):
 
 ```
-$ curl www.rust-lang.org/rustup.sh | sudo bash
+$ curl https://static.rust-lang.org/rustup.sh | sudo bash
 ```
 
