@@ -9,6 +9,16 @@ pub struct Config<'a>(pub Vec<Pair<'a>>);
 static DIVISOR_MIN: int = 2;
 static DIVISOR_MAX: int = 100;
 
+/*
+  Simplistically, just crash the task if invalid.
+
+  TODO
+
+  In reality, would want to at least use Rust's
+  Result type http://doc.rust-lang.org/std/result/index.html
+
+  Better yet, a full-fledged validation framework like Scalaz's.
+*/
 fn validate_pair(&(d, _): &Pair) {
   assert!(d >= DIVISOR_MIN,
           "divisor {} must be >= {}", d, DIVISOR_MIN);
@@ -34,6 +44,21 @@ fn rule(&(n, word): &Pair, i: int) -> Option<String> {
   }
 }
 
+/*
+  Add options, with an interesting optimization: String append reuses
+  the internal buffer of the first string.
+
+  TODO
+
+  Ideally, Rust library should provide Semigroup and Monoid traits
+  so that Option<T> is a Monoid if T is an Add (Rust-speak for Semigroup),
+  like Scalaz: https://github.com/scalaz/scalaz/blob/series/7.2.x/core/src/main/scala/scalaz/std/Option.scala
+
+  Note that a Monoid is a Zero (Rust-speak) with Add (Semigroup).
+
+  The code was written for clarity rather than full efficiency.
+  Returning Some(s1) could just be a1 and Some(s2) could be just a2.
+*/
 fn add_option(a1: Option<String>, a2: Option<String>)
               -> Option<String> {
   match (a1, a2) {
@@ -45,12 +70,12 @@ fn add_option(a1: Option<String>, a2: Option<String>)
 }
 
 // TODO Use closures to "compile", when Rust supports that.
-pub fn evaluate(Config(pairs): Config, i: int)
-                -> String {
-  let combined: Option<String> = pairs.iter()
-            .map(|pair| rule(pair, i))
-            .fold(None, add_option);
-  combined.unwrap_or_else(|| i.to_string())
+pub fn evaluate(Config(pairs): Config, i: int) -> String {
+  pairs
+    .iter()
+    .map(|pair| rule(pair, i))
+    .fold(None, add_option)
+    .unwrap_or_else(|| i.to_string())
 }
 
 #[cfg(test)]
