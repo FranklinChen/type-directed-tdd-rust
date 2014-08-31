@@ -31,11 +31,13 @@ fn old_fizzbuzzer(i: int) -> String {
 // validation and also use of Vector.
 fn fizzbuzzer_config<'a>() -> Config<'a> {
   Config::new(vec![(3, "Fizz"),
-                   (5, "Buzz")])
+                   (5, "Buzz")]
+              .as_slice())
+    .unwrap()
 }
 
 pub fn fizzbuzzer(i: int) -> String {
-  fizzbuzz::evaluate(fizzbuzzer_config(), i)
+  fizzbuzz::evaluate(&fizzbuzzer_config(), i)
 }
 
 // Cannot be static variable because of runtime
@@ -43,11 +45,13 @@ pub fn fizzbuzzer(i: int) -> String {
 fn fizzbuzzpopper_config<'a>() -> Config<'a> {
   Config::new(vec![(3, "Fizz"),
                    (5, "Buzz"),
-                   (7, "Pop")])
+                   (7, "Pop")]
+              .as_slice())
+    .unwrap()
 }
 
 pub fn fizzbuzzpopper(i: int) -> String {
-  fizzbuzz::evaluate(fizzbuzzpopper_config(), i)
+  fizzbuzz::evaluate(&fizzbuzzpopper_config(), i)
 }
 
 // Rust needs a test framework allowing fixtures.
