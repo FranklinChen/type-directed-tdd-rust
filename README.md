@@ -14,6 +14,12 @@ In particular, the type-directed TDD work flow leans heavily on [property-based 
 
 ### Code, article, and slides
 
+#### Most recent code
+
+I've made the `master` branch reflect the cleanest working version I have on hand of any code, independent of the presentation materials, which I am no longer modifying. So far, I have added:
+
+- Principled `Result`-based validation
+
 #### As actually presented on 2014-07-21
 
 The branch [`meetup`](https://github.com/FranklinChen/type-directed-tdd-rust/tree/meetup) will always contain the version of the materials as of the *actual presentation* (with only minor typos fixed).
@@ -29,7 +35,7 @@ Thanks to [Alex Crichton](https://github.com/alexcrichton), I created a new bran
 
 Thanks to feedback on the [Reddit discussion](http://www.reddit.com/r/rust/comments/2bcwua/type_driven_tdd_in_rust/), I learned of another optimization: using `String` `append()`, which cleverly reuses an existing buffer and saves on memory allocations and gives linear concatenation.
 
-I've made the `master` branch reflect the cleanest working version I have on hand of any code and accompanying presentation materials.
+I've made the `without-validation` branch reflect the cleanest working version I have on hand of code corresponding to the presentation materials. In particular, the code does not contain `Result`-based validation, which was outside the scope of the presentation.
 
 Documents:
 
