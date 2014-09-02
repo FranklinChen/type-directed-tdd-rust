@@ -10,6 +10,7 @@ extern crate quickcheck;
 extern crate quickcheck_macros;
 
 use std::iter::range_inclusive;
+use std::iter::RangeInclusive;
 
 mod fizzbuzz;
 mod defaults;
@@ -26,17 +27,19 @@ mod defaults;
 ///   print "FizzBuzz".
 #[cfg(not(test))]
 fn main() {
-  for result in run_to_seq(1i, 100).iter() {
+  for result in run_to_seq(1i, 100) {
     println!("{}", result)
   }
 }
 
+/// Ugly, should be hidden: waiting for Rust proposal of impl trait.
+type OurIterator<'a, T> = std::iter::Map<'a, int, T, RangeInclusive<int>>;
+
 /// Convert each integer to its correct string output.
-/// For convenience, collect each result into a Vec.
-fn run_to_seq(start: int, end: int) -> Vec<String> {
+/// Return an `Iterator` for maximum flexibility.
+fn run_to_seq<'a>(start: int, end: int) -> OurIterator<'a, String> {
   range_inclusive(start, end)
     .map(defaults::fizzbuzzer)
-    .collect()
 }
 
 #[cfg(test)]
@@ -45,14 +48,16 @@ mod test {
 
   #[test]
   fn test_1_to_16() {
-    let expected = vec![
+    let expected_slices = vec![
       "1", "2", "Fizz", "4", "Buzz", "Fizz",
       "7", "8", "Fizz", "Buzz", "11", "Fizz",
-      "13", "14", "FizzBuzz", "16",
-      ]
+      "13", "14", "FizzBuzz", "16"];
+    let actual = run_to_seq(1, 16)
+      .collect::<Vec<String>>();
+    let actual_slices = actual
       .iter()
-      .map(|&s| s.to_string())
-      .collect();
-    assert_eq!(run_to_seq(1, 16), expected)
+      .map(|s| s.as_slice())
+      .collect::<Vec<&str>>();
+    assert_eq!(actual_slices, expected_slices)
   }
 }

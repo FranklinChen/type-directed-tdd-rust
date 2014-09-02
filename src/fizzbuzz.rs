@@ -128,11 +128,10 @@ mod test {
 
   #[test]
   fn validation_works() {
-    let actual = Config::new(vec![(3, "Fizz"),
-                                  (101, "Buzz"),
-                                  (-5, "Pop"),
-                                  (102, "Boom")]
-                             .as_slice());
+    let actual = Config::new([(3, "Fizz"),
+                              (101, "Buzz"),
+                              (-5, "Pop"),
+                              (102, "Boom")]);
     let expected = Err(vec![DivisorTooBig(101),
                             DivisorTooSmall(-5),
                             DivisorTooBig(102)]);
@@ -165,9 +164,8 @@ mod test {
                    i: int) -> TestResult {
     if (d1 >= DIVISOR_MIN && d1 <= DIVISOR_MAX)
       && (d2 >= DIVISOR_MIN && d2 <= DIVISOR_MAX) {
-      let config = Config::new(vec![(d1, w1.as_slice()),
-                                    (d2, w2.as_slice())]
-                               .as_slice())
+      let config = Config::new([(d1, w1.as_slice()),
+                                (d2, w2.as_slice())])
           .unwrap();
       
       if i % d1 == 0 && i % d2 != 0 {
