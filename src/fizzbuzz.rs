@@ -4,7 +4,7 @@
 //// Utilities
 
 /*
-  Add options, with an interesting optimization: String append reuses
+  Add options, with an interesting optimization: push_str reuses
   the internal buffer of the first string.
 
   Option<String> as a Monoid since String is a Semigroup (Add in
@@ -13,10 +13,10 @@
 fn add_option_string(a1: Option<String>,
                      a2: Option<String>) -> Option<String> {
   match (a1, a2) {
-    (Some(s1), None)     => Some(s1),
-    (None,     Some(s2)) => Some(s2),
-    (Some(s1), Some(s2)) => Some(s1.append(s2.as_slice())),
-    (None,     None)     => None,
+    (Some(s1),     None)     => Some(s1),
+    (None,         Some(s2)) => Some(s2),
+    (Some(mut s1), Some(s2)) => Some({ s1.push_str(s2.as_slice()); s1 }),
+    (None,         None)     => None,
   }
 }
 
@@ -26,14 +26,14 @@ type ResultVec<T, E> = Result<T, Vec<E>>;
 
 /// Combine successful results with `f`, but accumulate errors.
 /// Important: any error causes the whole result to be an error!
-fn add_result<V, T, U, E: Clone>(result1: ResultVec<V, E>,
-                                 result2: ResultVec<T, E>,
-                                 f: |V, T| -> U) -> ResultVec<U, E> {
+fn add_result<V, T, U, E>(result1: ResultVec<V, E>,
+                          result2: ResultVec<T, E>,
+                          f: |V, T| -> U) -> ResultVec<U, E> {
   match (result1, result2) {
-    (Ok(v),   Ok(t))   => Ok(f(v, t)),
-    (Ok(_),   Err(e2)) => Err(e2),
-    (Err(e1), Ok(_))   => Err(e1),
-    (Err(e1), Err(e2)) => Err(e1.append(e2.as_slice()))
+    (Ok(v),       Ok(t))   => Ok(f(v, t)),
+    (Ok(_),       Err(e2)) => Err(e2),
+    (Err(e1),     Ok(_))   => Err(e1),
+    (Err(mut e1), Err(e2)) => Err({ e1.extend(e2.into_iter()); e1 })
   }
 }
 
@@ -43,7 +43,7 @@ fn add_result<V, T, U, E: Clone>(result1: ResultVec<V, E>,
 pub type Pair<'a> = (int, &'a str);
 
 /// A complete user configuration.
-#[deriving(Show, Clone, PartialEq)]
+#[deriving(Show, PartialEq)]
 pub struct Config<'a>(pub Vec<Pair<'a>>);
 
 //// Validation of divisors.
@@ -51,7 +51,7 @@ pub struct Config<'a>(pub Vec<Pair<'a>>);
 static DIVISOR_MIN: int = 2;
 static DIVISOR_MAX: int = 100;
 
-#[deriving(Show, Clone, PartialEq)]
+#[deriving(Show, PartialEq)]
 enum DivisorError {
   DivisorTooSmall(int),
   DivisorTooBig(int)
@@ -94,7 +94,10 @@ impl<'a> Config<'a> {
       .fold(Ok(vec![]),
             |v, t|
             add_result(v, t,
-                       |x, y| x.append_one(y)))
+                       |mut x, y| {
+                         x.push(y);
+                         x
+                       }))
       .map(Config)
   }
 }
@@ -167,7 +170,7 @@ mod test {
       let config = Config::new([(d1, w1.as_slice()),
                                 (d2, w2.as_slice())])
           .unwrap();
-      
+
       if i % d1 == 0 && i % d2 != 0 {
         TestResult::from_bool(evaluate(&config, i) == w1)
       } else {
