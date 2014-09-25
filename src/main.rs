@@ -12,6 +12,10 @@ extern crate quickcheck_macros;
 use std::iter::range_inclusive;
 use std::iter::RangeInclusive;
 
+mod option_utils;
+mod validation;
+
+mod divisor;
 mod fizzbuzz;
 mod defaults;
 
