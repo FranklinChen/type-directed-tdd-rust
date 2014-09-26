@@ -5,6 +5,11 @@
 /// More generally, Vec could be replaced by a Semigroup (Add).
 pub type Validation<T, E> = Result<T, Vec<E>>;
 
+#[inline]
+pub fn single<T, E>(result: Result<T, E>) -> Validation<T, E> {
+  result.map_err(|e| vec![e])
+}
+
 /// Combine successful results with `f`, but accumulate errors.
 /// Important: any error causes the whole result to be an error!
 pub fn add_with<V, T, U, E>(result1: Validation<V, E>,

@@ -2,23 +2,18 @@
 // More compact, just for slides.
 
 use option_utils;
+
 use validation;
 use validation::Validation;
-use divisor::{Divisor, DivisorError};
+
+use divisor;
+use divisor::Divisor;
 
 //// Application configuration.
 
 /// Map a divisor to its string, e.g., `(3, "Fizz".to_string())`.
 #[deriving(Show, PartialEq)]
 pub struct DivisorWord<'a>(Divisor, &'a str);
-
-impl<'a> DivisorWord<'a> {
-  pub fn new(d: int, word: &'a str)
-             -> Validation<DivisorWord<'a>, DivisorError> {
-    Divisor::new(d)
-      .map(|div| DivisorWord(div, word))
-  }
-}
 
 /// A complete user configuration.
 #[deriving(Show, PartialEq)]
@@ -28,11 +23,13 @@ pub struct Config<'a>(pub Vec<DivisorWord<'a>>);
 
 impl<'a> Config<'a> {
   /// Walk the pairs to create a validated `Vec` of pairs for `Config`.
-  pub fn new(pairs: &[(int, &'a str)])
-             -> Validation<Config<'a>, DivisorError> {
+  pub fn new(pairs: &[(int, &'a str)]) -> Validation<Config<'a>, divisor::Error> {
     pairs
       .iter()
-      .map(|&(d, word)| DivisorWord::new(d, word))
+      .map(|&(d, word)|
+           Divisor::new(d)
+           .map(|div| DivisorWord(div, word)))
+      .map(validation::single)
       .fold(Ok(vec![]),
             |v, t|
             validation::add_with(v, t,
@@ -45,9 +42,9 @@ impl<'a> Config<'a> {
 }
 
 /// Apply the rule for a particular mapping.
-fn rule<'a>(&DivisorWord(Divisor(n), word): &DivisorWord<'a>,
+fn rule<'a>(&DivisorWord(d, word): &DivisorWord<'a>,
             i: int) -> Option<&'a str> {
-  if i % n == 0 {
+  if i % d.get() == 0 {
     Some(word)
   } else {
     None
@@ -71,7 +68,7 @@ pub fn evaluate(&Config(ref pairs): &Config, i: int) -> String {
 mod test {
   use super::{Config, evaluate};
   use divisor;
-  use divisor::{DivisorTooBig, DivisorTooSmall};
+  use divisor::{TooBig, TooSmall};
   use quickcheck::TestResult;
 
   #[test]
@@ -80,31 +77,13 @@ mod test {
                               (101, "Buzz"),
                               (-5, "Pop"),
                               (102, "Boom")]);
-    let expected = Err(vec![DivisorTooBig(101),
-                            DivisorTooSmall(-5),
-                            DivisorTooBig(102)]);
+    let expected = Err(vec![TooBig(101),
+                            TooSmall(-5),
+                            TooBig(102)]);
     assert_eq!(actual, expected);
   }
 
-/*
-  // TODO Create own Arbitrary instances for Config.
-  // Too complex in Rust for presentation, unfortunately.
-  use quickcheck::{Arbitrary, Gen, Shrinker};
-
-  // Trivial in Scala and Haskell.
-  impl Arbitrary for Config {
-    fn arbitrary<G: Gen>(g: &mut G) -> Config {
-      // TODO
-      fail!()
-    }
-    fn shrink(&self) -> Box<Shrinker<Config>> {
-      // TODO
-      fail!()
-    }
-  }
-*/
-
-  // TODO Write arbitrary for Divisor
+  // TODO Write arbitrary for Divisor, Config
   // TODO nest the checks, staging the check of i.
   // Trivial in Scala and Haskell.
   #[quickcheck]

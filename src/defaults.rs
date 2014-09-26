@@ -29,6 +29,7 @@ fn old_fizzbuzzer(i: int) -> String {
 
 // Cannot be static variable because of runtime
 // validation and also use of Vector.
+#[inline]
 fn fizzbuzzer_config<'a>() -> Config<'a> {
   Config::new([(3, "Fizz"),
                (5, "Buzz")])
@@ -41,6 +42,7 @@ pub fn fizzbuzzer(i: int) -> String {
 
 // Cannot be static variable because of runtime
 // validation and also use of Vector.
+#[inline]
 fn fizzbuzzpopper_config<'a>() -> Config<'a> {
   Config::new([(3, "Fizz"),
                (5, "Buzz"),

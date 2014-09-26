@@ -41,6 +41,7 @@ type OurIterator<'a, T> = std::iter::Map<'a, int, T, RangeInclusive<int>>;
 
 /// Convert each integer to its correct string output.
 /// Return an `Iterator` for maximum flexibility.
+#[inline]
 fn run_to_seq<'a>(start: int, end: int) -> OurIterator<'a, String> {
   range_inclusive(start, end)
     .map(defaults::fizzbuzzer)
