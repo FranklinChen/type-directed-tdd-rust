@@ -15,6 +15,11 @@ use divisor::Divisor;
 #[deriving(Show, PartialEq)]
 pub struct DivisorWord<'a>(Divisor, &'a str);
 
+/* Hmm, not possible to generate lifetime-generic type?
+impl<'a> Arbitrary for DivisorWord<'a> {
+}
+*/
+
 /// A complete user configuration.
 #[deriving(Show, PartialEq)]
 pub struct Config<'a>(pub Vec<DivisorWord<'a>>);
@@ -27,8 +32,7 @@ impl<'a> Config<'a> {
     pairs
       .iter()
       .map(|&(d, word)|
-           Divisor::new(d)
-           .map(|div| DivisorWord(div, word)))
+           Divisor::new(d).map(|div| DivisorWord(div, word)))
       .map(validation::single)
       .fold(Ok(vec![]),
             |v, t|
@@ -40,6 +44,11 @@ impl<'a> Config<'a> {
       .map(Config)
   }
 }
+
+/* Hmm, not possible to generate lifetime-generic type?
+impl<'a> Arbitrary for Config<'a> {
+}
+*/
 
 /// Apply the rule for a particular mapping.
 fn rule<'a>(&DivisorWord(d, word): &DivisorWord<'a>,
@@ -66,9 +75,8 @@ pub fn evaluate(&Config(ref pairs): &Config, i: int) -> String {
 
 #[cfg(test)]
 mod test {
-  use super::{Config, evaluate};
-  use divisor;
-  use divisor::{TooBig, TooSmall};
+  use super::{DivisorWord, Config, evaluate};
+  use divisor::{Divisor, TooBig, TooSmall};
   use quickcheck::TestResult;
 
   #[test]
@@ -83,25 +91,20 @@ mod test {
     assert_eq!(actual, expected);
   }
 
-  // TODO Write arbitrary for Divisor, Config
-  // TODO nest the checks, staging the check of i.
-  // Trivial in Scala and Haskell.
+  // TODO nest the checks, staging the generation of i only after
+  // generation of Config.
+  //
+  // Ideally would generate DivisorWord with quickcheck, but lifetime
+  // makes impossible.
   #[quickcheck]
-  fn d1_but_not_d2((d1, w1): (int, String),
-                   (d2, w2): (int, String),
+  fn d1_but_not_d2((d1, w1): (Divisor, String),
+                   (d2, w2): (Divisor, String),
                    i: int) -> TestResult {
-    if (d1 >= divisor::MIN && d1 <= divisor::MAX)
-      && (d2 >= divisor::MIN && d2 <= divisor::MAX) {
-        // TODO do not unwrap
-      let config = Config::new([(d1, w1.as_slice()),
-                                (d2, w2.as_slice())])
-          .unwrap();
+    let config = Config(vec![DivisorWord(d1, w1.as_slice()),
+                             DivisorWord(d2, w2.as_slice())]);
 
-      if i % d1 == 0 && i % d2 != 0 {
-        TestResult::from_bool(evaluate(&config, i) == w1)
-      } else {
-        TestResult::discard()
-      }
+    if i % d1.get() == 0 && i % d2.get() != 0 {
+      TestResult::from_bool(evaluate(&config, i) == w1)
     } else {
       TestResult::discard()
     }

@@ -1,6 +1,9 @@
 // -*- rust-indent-offset: 2 -*-
 // More compact, just for slides.
 
+use std::rand::Rng;
+use quickcheck::{Arbitrary, Gen, Shrinker, empty_shrinker};
+
 /// A legal divisor.
 /// Keep field private to prevent direct construction.
 /// Only allow creation with Divisor::new.
@@ -35,6 +38,19 @@ impl Divisor {
     match self {
       &Divisor(d) => d
     }
+  }
+}
+
+// For quickcheck.
+impl Arbitrary for Divisor {
+  fn arbitrary<G: Gen>(g: &mut G) -> Divisor {
+    let d = g.gen_range(MIN, MAX+1);
+    Divisor::new(d).unwrap()
+  }
+
+  fn shrink(&self) -> Box<Shrinker<Divisor>+'static> {
+    // TODO: no shrinker for now.
+    empty_shrinker()
   }
 }
 

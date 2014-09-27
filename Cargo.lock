@@ -2,20 +2,20 @@
 name = "type-directed-tdd-rust"
 version = "0.1.0"
 dependencies = [
- "quickcheck 0.1.1 (git+https://github.com/BurntSushi/quickcheck#c6eaa36e8ddaffa377af36b2d539cfe7b7d5d016)",
- "quickcheck_macros 0.1.1 (git+https://github.com/BurntSushi/quickcheck#c6eaa36e8ddaffa377af36b2d539cfe7b7d5d016)",
+ "quickcheck 0.1.2 (git+https://github.com/BurntSushi/quickcheck#a1eba7e62bf7c3f77bb014893573ab81a6b989e4)",
+ "quickcheck_macros 0.1.2 (git+https://github.com/BurntSushi/quickcheck#a1eba7e62bf7c3f77bb014893573ab81a6b989e4)",
 ]
 
 [[package]]
 name = "quickcheck"
-version = "0.1.1"
-source = "git+https://github.com/BurntSushi/quickcheck#c6eaa36e8ddaffa377af36b2d539cfe7b7d5d016"
+version = "0.1.2"
+source = "git+https://github.com/BurntSushi/quickcheck#a1eba7e62bf7c3f77bb014893573ab81a6b989e4"
 dependencies = [
- "quickcheck_macros 0.1.1 (git+https://github.com/BurntSushi/quickcheck#c6eaa36e8ddaffa377af36b2d539cfe7b7d5d016)",
+ "quickcheck_macros 0.1.2 (git+https://github.com/BurntSushi/quickcheck#a1eba7e62bf7c3f77bb014893573ab81a6b989e4)",
 ]
 
 [[package]]
 name = "quickcheck_macros"
-version = "0.1.1"
-source = "git+https://github.com/BurntSushi/quickcheck#c6eaa36e8ddaffa377af36b2d539cfe7b7d5d016"
+version = "0.1.2"
+source = "git+https://github.com/BurntSushi/quickcheck#a1eba7e62bf7c3f77bb014893573ab81a6b989e4"
 
