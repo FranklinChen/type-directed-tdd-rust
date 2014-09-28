@@ -45,6 +45,9 @@ impl Divisor {
 impl Arbitrary for Divisor {
   fn arbitrary<G: Gen>(g: &mut G) -> Divisor {
     let d = g.gen_range(MIN, MAX+1);
+    //Divisor(d)
+    // It is best to use our safe API even though in this case
+    // we "know" that we are generating only valid divisors.
     Divisor::new(d).unwrap()
   }
 

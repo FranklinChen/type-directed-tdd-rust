@@ -1,6 +1,8 @@
 // -*- rust-indent-offset: 2 -*-
 // More compact, just for slides.
 
+use std::iter::Iterator;
+
 /// Convenient type synonym for a common pattern of usage.
 /// More generally, Vec could be replaced by a Semigroup (Add).
 pub type Validation<T, E> = Result<T, Vec<E>>;
@@ -21,4 +23,19 @@ pub fn add_with<V, T, U, E>(result1: Validation<V, E>,
     (Err(e1),     Ok(_))   => Err(e1),
     (Err(mut e1), Err(e2)) => Err({ e1.extend(e2.into_iter()); e1 })
   }
+}
+
+/// Combine a stream of Result to a Validation, accumulating successes.
+pub fn combine_results<T,
+                       E,
+                       I: Iterator<Result<T, E>>>(iter: I)
+  -> Validation<Vec<T>, E> {
+  iter.map(single)
+      .fold(Ok(vec![]),
+            |v, t|
+            add_with(v, t,
+                     |mut x, y| {
+                       x.push(y);
+                       x
+                     }))
 }
