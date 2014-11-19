@@ -26,9 +26,9 @@ impl Divisor {
   /// Do not in general trust chained if/else.
   pub fn new(d: int) -> Result<Divisor, Error> {
     if d < MIN {
-      Err(TooSmall(d))
+      Err(Error::TooSmall(d))
     } else if d > MAX {
-      Err(TooBig(d))
+      Err(Error::TooBig(d))
     } else {
       Ok(Divisor(d))
     }
@@ -59,7 +59,8 @@ impl Arbitrary for Divisor {
 
 #[cfg(test)]
 mod test {
-  use super::{Divisor, TooSmall, TooBig, MIN, MAX};
+  use super::{Divisor, MIN, MAX};
+  use super::Error::{TooBig, TooSmall};
   use quickcheck::TestResult;
 
   #[test]

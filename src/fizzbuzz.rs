@@ -61,7 +61,7 @@ pub fn evaluate(&Config(ref pairs): &Config, i: int) -> String {
 #[cfg(test)]
 mod test {
   use super::{DivisorWord, Config, evaluate};
-  use divisor::{TooBig, TooSmall};
+  use divisor::Error::{TooBig, TooSmall};
   use quickcheck::TestResult;
 
   #[test]
