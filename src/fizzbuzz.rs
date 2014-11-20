@@ -12,7 +12,6 @@ use divisor::Divisor;
 //// Application configuration.
 
 /// Map a divisor to its string, e.g., `(3, "Fizz".to_string())`.
-#[deriving(Show, Clone, PartialEq)]
 pub type DivisorWord = (Divisor, String);
 
 /// A complete user configuration.
@@ -66,7 +65,7 @@ mod test {
 
   #[test]
   fn validation_works() {
-    let actual = Config::new([(3, "Fizz".to_string()),
+    let actual = Config::new(&[(3, "Fizz".to_string()),
                               (101, "Buzz".to_string()),
                               (-5, "Pop".to_string()),
                               (102, "Boom".to_string())]);

@@ -31,7 +31,7 @@ fn old_fizzbuzzer(i: int) -> String {
 // validation and also use of Vector.
 #[inline]
 fn fizzbuzzer_config() -> Config {
-  Config::new([(3, "Fizz".to_string()),
+  Config::new(&[(3, "Fizz".to_string()),
                (5, "Buzz".to_string())])
     .unwrap()
 }
@@ -44,7 +44,7 @@ pub fn fizzbuzzer(i: int) -> String {
 // validation and also use of Vector.
 #[inline]
 fn fizzbuzzpopper_config() -> Config {
-  Config::new([(3, "Fizz".to_string()),
+  Config::new(&[(3, "Fizz".to_string()),
                (5, "Buzz".to_string()),
                (7, "Pop".to_string())])
     .unwrap()
