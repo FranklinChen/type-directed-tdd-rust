@@ -1,7 +1,7 @@
 // -*- rust-indent-offset: 2 -*-
 // More compact, just for slides.
 
-//! FizzBuzz.
+//! FizzBuzz, implemented in a [type-directed way](https://github.com/FranklinChen/type-directed-tdd-rust) for a presentation for [Pittsburgh Code and Supply](http://codeandsupply.co/).
 
 #![feature(phase)]
 
