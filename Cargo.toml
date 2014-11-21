@@ -2,7 +2,13 @@
 
 name = "type-directed-tdd-rust"
 version = "0.1.0"
-authors = ["franklinchen@franklinchen.com"]
+authors = ["Franklin Chen <franklinchen@franklinchen.com>"]
+description = "Code for FizzBuzz talk"
+homepage = "https://github.com/FranklinChen/rust-tau"
+repository = "https://github.com/FranklinChen/rust-tau"
+readme = "README.md"
+keywords = ["fizzbuzz"]
+license = "MIT"
 
 [[bin]]
 
