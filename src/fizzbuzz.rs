@@ -36,8 +36,9 @@ impl Config {
 }
 
 /// Apply the rule for a particular mapping.
-fn rule(&(d, ref word): &DivisorWord,
+fn rule(pair: &DivisorWord,
             i: int) -> Option<String> {
+  let (ref d, ref word) = *pair;
   if i % d.get() == 0 {
     Some(word.clone())
   } else {
