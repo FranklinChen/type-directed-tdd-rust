@@ -10,7 +10,6 @@ extern crate quickcheck;
 extern crate quickcheck_macros;
 
 use std::iter::range_inclusive;
-use std::iter::RangeInclusive;
 
 mod option_utils;
 mod validation;
@@ -31,20 +30,22 @@ mod defaults;
 ///   print "FizzBuzz".
 #[cfg(not(test))]
 fn main() {
-  for result in run_to_seq(1i, 100) {
+  for result in run_to_seq(1i, 100).iter() {
     println!("{}", result)
   }
 }
 
-/// Ugly, should be hidden: waiting for Rust proposal of impl trait.
-type OurIterator<'a, T> = std::iter::Map<'a, int, T, RangeInclusive<int>>;
-
 /// Convert each integer to its correct string output.
-/// Return an `Iterator` for maximum flexibility.
+///
+/// Used to return an `Iterator` for maximum flexibility, but
+/// Rust just changed to make this impossible without wrapping:
+/// http://stackoverflow.com/questions/27496278/how-to-return-a-generic-map-struct/27497032#27497032
+/// TODO: wait for Rust to provide clean way of returning `Iterator`.
 #[inline]
-fn run_to_seq<'a>(start: int, end: int) -> OurIterator<'a, String> {
+fn run_to_seq(start: int, end: int) -> Vec<String> {
   range_inclusive(start, end)
     .map(defaults::fizzbuzzer)
+    .collect::<Vec<String>>()
 }
 
 #[cfg(test)]
@@ -57,8 +58,7 @@ mod test {
       "1", "2", "Fizz", "4", "Buzz", "Fizz",
       "7", "8", "Fizz", "Buzz", "11", "Fizz",
       "13", "14", "FizzBuzz", "16"];
-    let actual = run_to_seq(1, 16)
-      .collect::<Vec<String>>();
+    let actual = run_to_seq(1, 16);
     let actual_slices = actual
       .iter()
       .map(|s| s.as_slice())

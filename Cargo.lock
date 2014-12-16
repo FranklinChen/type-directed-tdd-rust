@@ -9,12 +9,12 @@ dependencies = [
 [[package]]
 name = "quickcheck"
 version = "0.1.5"
-source = "git+https://github.com/BurntSushi/quickcheck#d7daf088ab016f3b85dfd10858b49781c63b5cd4"
+source = "git+https://github.com/BurntSushi/quickcheck#e96ed7092b9d3b8d12139175b8510fac4a684638"
 
 [[package]]
 name = "quickcheck_macros"
 version = "0.1.5"
-source = "git+https://github.com/BurntSushi/quickcheck#d7daf088ab016f3b85dfd10858b49781c63b5cd4"
+source = "git+https://github.com/BurntSushi/quickcheck#e96ed7092b9d3b8d12139175b8510fac4a684638"
 dependencies = [
  "quickcheck 0.1.5 (git+https://github.com/BurntSushi/quickcheck)",
 ]
