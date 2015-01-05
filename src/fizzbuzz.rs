@@ -15,7 +15,7 @@ use divisor::Divisor;
 pub type DivisorWord = (Divisor, String);
 
 /// A complete user configuration.
-#[deriving(Show, PartialEq)]
+#[derive(Show, PartialEq)]
 pub struct Config(pub Vec<DivisorWord>);
 
 //// Application config creation

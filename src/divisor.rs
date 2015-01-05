@@ -7,7 +7,7 @@ use quickcheck::{Arbitrary, Gen, Shrinker, empty_shrinker};
 /// A legal divisor.
 /// Keep field private to prevent direct construction.
 /// Only allow creation with Divisor::new.
-#[deriving(Show, PartialEq, Clone)]
+#[derive(Show, PartialEq, Clone)]
 pub struct Divisor(int);
 
 //// Validation of divisors.
@@ -15,7 +15,7 @@ pub struct Divisor(int);
 pub static MIN: int = 2;
 pub static MAX: int = 100;
 
-#[deriving(Show, PartialEq)]
+#[derive(Show, PartialEq)]
 pub enum Error {
   TooSmall(int),
   TooBig(int)

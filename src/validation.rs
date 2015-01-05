@@ -28,8 +28,10 @@ pub fn add_with<V, T, U, E>(result1: Validation<V, E>,
 /// Combine a stream of Result to a Validation, accumulating successes.
 pub fn combine_results<T,
                        E,
-                       I: Iterator<Result<T, E>>>(iter: I)
-  -> Validation<Vec<T>, E> {
+                       I>(iter: I)
+  -> Validation<Vec<T>, E> where
+  I: Iterator<Item = Result<T, E>>
+{
   iter.map(single)
       .fold(Ok(vec![]),
             |v, t|
