@@ -2,20 +2,36 @@
 name = "type-directed-tdd-rust"
 version = "0.1.0"
 dependencies = [
- "quickcheck 0.1.22 (git+https://github.com/BurntSushi/quickcheck)",
- "quickcheck_macros 0.1.22 (git+https://github.com/BurntSushi/quickcheck)",
+ "quickcheck 0.1.23 (git+https://github.com/BurntSushi/quickcheck)",
+ "quickcheck_macros 0.1.23 (git+https://github.com/BurntSushi/quickcheck)",
+]
+
+[[package]]
+name = "log"
+version = "0.1.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "regex 0.1.8 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "quickcheck"
-version = "0.1.22"
-source = "git+https://github.com/BurntSushi/quickcheck#d9c0e8554c3d9c335a6d624cb5a575ad98d4002e"
+version = "0.1.23"
+source = "git+https://github.com/BurntSushi/quickcheck#736c1d2f632284eb98e4ccc25a00270445e340c6"
+dependencies = [
+ "log 0.1.7 (registry+https://github.com/rust-lang/crates.io-index)",
+]
 
 [[package]]
 name = "quickcheck_macros"
-version = "0.1.22"
-source = "git+https://github.com/BurntSushi/quickcheck#d9c0e8554c3d9c335a6d624cb5a575ad98d4002e"
+version = "0.1.23"
+source = "git+https://github.com/BurntSushi/quickcheck#736c1d2f632284eb98e4ccc25a00270445e340c6"
 dependencies = [
- "quickcheck 0.1.22 (git+https://github.com/BurntSushi/quickcheck)",
+ "quickcheck 0.1.23 (git+https://github.com/BurntSushi/quickcheck)",
 ]
+
+[[package]]
+name = "regex"
+version = "0.1.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
 
