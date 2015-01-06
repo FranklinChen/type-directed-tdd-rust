@@ -14,9 +14,11 @@ pub fn single<T, E>(result: Result<T, E>) -> Validation<T, E> {
 
 /// Combine successful results with `f`, but accumulate errors.
 /// Important: any error causes the whole result to be an error!
-pub fn add_with<V, T, U, E>(result1: Validation<V, E>,
+pub fn add_with<V, T, U, E, F>(result1: Validation<V, E>,
                             result2: Validation<T, E>,
-                            f: |V, T| -> U) -> Validation<U, E> {
+                            mut f: F) -> Validation<U, E>
+  where F: FnMut(V, T) -> U
+{
   match (result1, result2) {
     (Ok(v),       Ok(t))   => Ok(f(v, t)),
     (Ok(_),       Err(e2)) => Err(e2),
