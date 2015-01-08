@@ -3,10 +3,10 @@
 
 //! FizzBuzz, implemented in a [type-directed way](https://github.com/FranklinChen/type-directed-tdd-rust) for a presentation for [Pittsburgh Code and Supply](http://codeandsupply.co/).
 
-#![feature(phase)]
-
+#![feature(plugin)]
 extern crate quickcheck;
-#[phase(plugin)]
+
+#[plugin]
 extern crate quickcheck_macros;
 
 use std::iter::range_inclusive;
