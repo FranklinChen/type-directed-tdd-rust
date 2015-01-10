@@ -23,7 +23,7 @@ pub struct Config(pub Vec<DivisorWord>);
 impl Config {
   /// Factory method with validation.
   /// Walk the pairs to create a validated `Vec` of pairs for `Config`.
-  pub fn new(pairs: &[(int, String)])
+  pub fn new(pairs: &[(isize, String)])
              -> Validation<Config, divisor::Error> {
     let results_iter = pairs
       .iter()
@@ -37,7 +37,7 @@ impl Config {
 
 /// Apply the rule for a particular mapping.
 fn rule(pair: &DivisorWord,
-            i: int) -> Option<String> {
+            i: isize) -> Option<String> {
   let (ref d, ref word) = *pair;
   if i % d.get() == 0 {
     Some(word.clone())
@@ -50,7 +50,7 @@ fn rule(pair: &DivisorWord,
 /// Use an optimization by converting from `&str` to `String`
 /// right away in order to append to the first `String` in repeated
 /// adds.
-pub fn evaluate(&Config(ref pairs): &Config, i: int) -> String {
+pub fn evaluate(&Config(ref pairs): &Config, i: isize) -> String {
   pairs
     .iter()
     .map(|pair| rule(pair, i))
@@ -81,7 +81,7 @@ mod test {
   #[quickcheck]
   fn d1_but_not_d2(dw1: DivisorWord,
                    dw2: DivisorWord,
-                   i: int) -> TestResult {
+                   i: isize) -> TestResult {
     let config = Config(vec![dw1.clone(),
                              dw2.clone()]);
     let (d1, w1) = dw1;

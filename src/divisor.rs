@@ -8,23 +8,23 @@ use quickcheck::{Arbitrary, Gen, Shrinker, empty_shrinker};
 /// Keep field private to prevent direct construction.
 /// Only allow creation with Divisor::new.
 #[derive(Show, PartialEq, Clone)]
-pub struct Divisor(int);
+pub struct Divisor(isize);
 
 //// Validation of divisors.
 
-pub static MIN: int = 2;
-pub static MAX: int = 100;
+pub static MIN: isize = 2;
+pub static MAX: isize = 100;
 
 #[derive(Show, PartialEq)]
 pub enum Error {
-  TooSmall(int),
-  TooBig(int)
+  TooSmall(isize),
+  TooBig(isize)
 }
 
 impl Divisor {
   /// Warning: this logic of if/else only makes sense if MIN <= MAX.
   /// Do not in general trust chained if/else.
-  pub fn new(d: int) -> Result<Divisor, Error> {
+  pub fn new(d: isize) -> Result<Divisor, Error> {
     if d < MIN {
       Err(Error::TooSmall(d))
     } else if d > MAX {
@@ -34,7 +34,7 @@ impl Divisor {
     }
   }
 
-  pub fn get(&self) -> int {
+  pub fn get(&self) -> isize {
     match self {
       &Divisor(d) => d
     }
@@ -69,7 +69,7 @@ mod test {
   }
 
   #[quickcheck]
-  fn validate_all_cases(d: int) -> TestResult {
+  fn validate_all_cases(d: isize) -> TestResult {
     match (d >= MIN, d <= MAX) {
       (true, true) =>
         TestResult::from_bool(Divisor::new(d) == Ok(Divisor(d))),

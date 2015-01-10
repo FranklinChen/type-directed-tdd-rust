@@ -5,7 +5,7 @@ use fizzbuzz;
 use fizzbuzz::Config;
 
 #[allow(dead_code)]
-fn buggy_fizzbuzzer(i: int) -> String {
+fn buggy_fizzbuzzer(i: isize) -> String {
   if i % 3 == 0 {
     "Fizz".to_string()
   } else if i % 5 == 0 {
@@ -18,7 +18,7 @@ fn buggy_fizzbuzzer(i: int) -> String {
 }
 
 #[allow(dead_code)]
-fn old_fizzbuzzer(i: int) -> String {
+fn old_fizzbuzzer(i: isize) -> String {
   match (i % 3 == 0, i % 5 == 0) {
     (true,  false) => "Fizz".to_string(),
     (false, true)  => "Buzz".to_string(),
@@ -36,7 +36,7 @@ fn fizzbuzzer_config() -> Config {
     .unwrap()
 }
 
-pub fn fizzbuzzer(i: int) -> String {
+pub fn fizzbuzzer(i: isize) -> String {
   fizzbuzz::evaluate(&fizzbuzzer_config(), i)
 }
 
@@ -50,7 +50,7 @@ fn fizzbuzzpopper_config() -> Config {
     .unwrap()
 }
 
-pub fn fizzbuzzpopper(i: int) -> String {
+pub fn fizzbuzzpopper(i: isize) -> String {
   fizzbuzz::evaluate(&fizzbuzzpopper_config(), i)
 }
 
@@ -103,7 +103,7 @@ mod test {
   //// QuickCheck
 
   #[quickcheck]
-  fn multiple_of_both_3_and_5(i: int) -> TestResult {
+  fn multiple_of_both_3_and_5(i: isize) -> TestResult {
     if i % 3 == 0 && i % 5 == 0 {
       TestResult::from_bool(fizzbuzzer(i) == "FizzBuzz".to_string())
     } else {
@@ -112,7 +112,7 @@ mod test {
   }
 
   #[quickcheck]
-  fn multiple_of_only_3(i: int) -> TestResult {
+  fn multiple_of_only_3(i: isize) -> TestResult {
     if i % 3 == 0 && i % 5 != 0 {
       TestResult::from_bool(fizzbuzzer(i) == "Fizz".to_string())
     } else {
@@ -121,7 +121,7 @@ mod test {
   }
 
   #[quickcheck]
-  fn multiple_of_only_5(i: int) -> TestResult {
+  fn multiple_of_only_5(i: isize) -> TestResult {
     if i % 3 != 0 && i % 5 == 0 {
       TestResult::from_bool(fizzbuzzer(i) == "Buzz".to_string())
     } else {
@@ -130,7 +130,7 @@ mod test {
   }
 
   #[quickcheck]
-  fn not_multiple_of_3_and_5(i: int) -> TestResult {
+  fn not_multiple_of_3_and_5(i: isize) -> TestResult {
     if i % 3 != 0 && i % 5 != 0 {
       TestResult::from_bool(fizzbuzzer(i) == i.to_string())
     } else {

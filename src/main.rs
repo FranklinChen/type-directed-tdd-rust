@@ -35,14 +35,14 @@ fn main() {
   }
 }
 
-/// Convert each integer to its correct string output.
+/// Convert each isizeeger to its correct string output.
 ///
 /// Used to return an `Iterator` for maximum flexibility, but
 /// Rust just changed to make this impossible without wrapping:
 /// http://stackoverflow.com/questions/27496278/how-to-return-a-generic-map-struct/27497032#27497032
 /// TODO: wait for Rust to provide clean way of returning `Iterator`.
 #[inline]
-fn run_to_seq(start: int, end: int) -> Vec<String> {
+fn run_to_seq(start: isize, end: isize) -> Vec<String> {
   range_inclusive(start, end)
     .map(defaults::fizzbuzzer)
     .collect::<Vec<String>>()
