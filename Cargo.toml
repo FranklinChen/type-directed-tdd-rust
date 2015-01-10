@@ -15,8 +15,11 @@ license = "MIT"
 
 name = "fizzbuzz"
 
-[dependencies.quickcheck]
-git = "https://github.com/BurntSushi/quickcheck"
+[dependencies]
 
-[dependencies.quickcheck_macros]
-git = "https://github.com/BurntSushi/quickcheck"
+quickcheck = "*"
+
+[dev_dependencies]
+
+quickcheck_macros = "*"
+
