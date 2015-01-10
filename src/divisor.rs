@@ -68,19 +68,20 @@ mod test {
     assert!(MIN <= MAX)
   }
 
-  #[quickcheck]
-  fn validate_all_cases(d: isize) -> TestResult {
-    match (d >= MIN, d <= MAX) {
-      (true, true) =>
-        TestResult::from_bool(Divisor::new(d) == Ok(Divisor(d))),
-      (false, true) =>
-        TestResult::from_bool(Divisor::new(d) == Err(TooSmall(d))),
-      (true, false) =>
-        TestResult::from_bool(Divisor::new(d) == Err(TooBig(d))),
-      (false, false) =>
-        TestResult::error("Impossible combination"),
+  #[test]
+  fn validate_all_cases() {
+    fn validate_all_cases(d: isize) -> TestResult {
+      match (d >= MIN, d <= MAX) {
+        (true, true) =>
+          TestResult::from_bool(Divisor::new(d) == Ok(Divisor(d))),
+        (false, true) =>
+          TestResult::from_bool(Divisor::new(d) == Err(TooSmall(d))),
+        (true, false) =>
+          TestResult::from_bool(Divisor::new(d) == Err(TooBig(d))),
+        (false, false) =>
+          TestResult::error("Impossible combination"),
+      }
     }
-
-
+    ::quickcheck::quickcheck(validate_all_cases as fn(isize) -> TestResult)
   }
 }

@@ -18,8 +18,3 @@ name = "fizzbuzz"
 [dependencies]
 
 quickcheck = "*"
-
-[dev_dependencies]
-
-quickcheck_macros = "*"
-

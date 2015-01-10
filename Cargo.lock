@@ -3,7 +3,6 @@ name = "type-directed-tdd-rust"
 version = "0.1.0"
 dependencies = [
  "quickcheck 0.1.29 (registry+https://github.com/rust-lang/crates.io-index)",
- "quickcheck_macros 0.1.29 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -20,14 +19,6 @@ version = "0.1.29"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "log 0.1.9 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
-[[package]]
-name = "quickcheck_macros"
-version = "0.1.29"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-dependencies = [
- "quickcheck 0.1.29 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]

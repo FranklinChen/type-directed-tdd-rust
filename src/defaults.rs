@@ -102,39 +102,51 @@ mod test {
 
   //// QuickCheck
 
-  #[quickcheck]
-  fn multiple_of_both_3_and_5(i: isize) -> TestResult {
-    if i % 3 == 0 && i % 5 == 0 {
-      TestResult::from_bool(fizzbuzzer(i) == "FizzBuzz".to_string())
-    } else {
-      TestResult::discard()
+  #[test]
+  fn multiple_of_both_3_and_5() {
+    fn multiple_of_both_3_and_5(i: isize) -> TestResult {
+      if i % 3 == 0 && i % 5 == 0 {
+        TestResult::from_bool(fizzbuzzer(i) == "FizzBuzz".to_string())
+      } else {
+        TestResult::discard()
+      }
     }
+    ::quickcheck::quickcheck(multiple_of_both_3_and_5 as fn(isize) -> TestResult)
   }
 
-  #[quickcheck]
-  fn multiple_of_only_3(i: isize) -> TestResult {
-    if i % 3 == 0 && i % 5 != 0 {
-      TestResult::from_bool(fizzbuzzer(i) == "Fizz".to_string())
-    } else {
-      TestResult::discard()
+  #[test]
+  fn multiple_of_only_3() {
+    fn multiple_of_only_3(i: isize) -> TestResult {
+      if i % 3 == 0 && i % 5 != 0 {
+        TestResult::from_bool(fizzbuzzer(i) == "Fizz".to_string())
+      } else {
+        TestResult::discard()
+      }
     }
+    ::quickcheck::quickcheck(multiple_of_only_3 as fn(isize) -> TestResult)
   }
 
-  #[quickcheck]
-  fn multiple_of_only_5(i: isize) -> TestResult {
-    if i % 3 != 0 && i % 5 == 0 {
-      TestResult::from_bool(fizzbuzzer(i) == "Buzz".to_string())
-    } else {
-      TestResult::discard()
+  #[test]
+  fn multiple_of_only_5() {
+    fn multiple_of_only_5(i: isize) -> TestResult {
+      if i % 3 != 0 && i % 5 == 0 {
+        TestResult::from_bool(fizzbuzzer(i) == "Buzz".to_string())
+      } else {
+        TestResult::discard()
+      }
     }
+    ::quickcheck::quickcheck(multiple_of_only_5 as fn(isize) -> TestResult)
   }
 
-  #[quickcheck]
-  fn not_multiple_of_3_and_5(i: isize) -> TestResult {
-    if i % 3 != 0 && i % 5 != 0 {
-      TestResult::from_bool(fizzbuzzer(i) == i.to_string())
-    } else {
-      TestResult::discard()
+  #[test]
+  fn not_multiple_of_3_and_5() {
+    fn not_multiple_of_3_and_5(i: isize) -> TestResult {
+      if i % 3 != 0 && i % 5 != 0 {
+        TestResult::from_bool(fizzbuzzer(i) == i.to_string())
+      } else {
+        TestResult::discard()
+      }
     }
+    ::quickcheck::quickcheck(not_multiple_of_3_and_5 as fn(isize) -> TestResult);
   }
 }

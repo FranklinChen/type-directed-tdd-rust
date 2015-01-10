@@ -78,20 +78,23 @@ mod test {
 
   // TODO nest the checks, staging the generation of i only after
   // generation of Config.
-  #[quickcheck]
-  fn d1_but_not_d2(dw1: DivisorWord,
-                   dw2: DivisorWord,
-                   i: isize) -> TestResult {
-    let config = Config(vec![dw1.clone(),
-                             dw2.clone()]);
-    let (d1, w1) = dw1;
-    let (d2, _) = dw2;
+  #[test]
+  fn d1_but_not_d2() {
+    fn d1_but_not_d2(dw1: DivisorWord,
+                     dw2: DivisorWord,
+                     i: isize) -> TestResult {
+      let config = Config(vec![dw1.clone(),
+                               dw2.clone()]);
+      let (d1, w1) = dw1;
+      let (d2, _) = dw2;
 
-    if i % d1.get() == 0 && i % d2.get() != 0 {
-      TestResult::from_bool(evaluate(&config, i) == w1)
-    } else {
-      TestResult::discard()
+      if i % d1.get() == 0 && i % d2.get() != 0 {
+        TestResult::from_bool(evaluate(&config, i) == w1)
+      } else {
+        TestResult::discard()
+      }
     }
+    ::quickcheck::quickcheck(d1_but_not_d2 as fn(DivisorWord, DivisorWord, isize) -> TestResult);
   }
 
   // TODO the other three cases are similar.

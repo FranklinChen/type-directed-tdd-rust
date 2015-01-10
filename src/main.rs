@@ -3,11 +3,7 @@
 
 //! FizzBuzz, implemented in a [type-directed way](https://github.com/FranklinChen/type-directed-tdd-rust) for a presentation for [Pittsburgh Code and Supply](http://codeandsupply.co/).
 
-#![feature(plugin)]
 extern crate quickcheck;
-
-#[plugin]
-extern crate quickcheck_macros;
 
 use std::iter::range_inclusive;
 
@@ -35,7 +31,7 @@ fn main() {
   }
 }
 
-/// Convert each isizeeger to its correct string output.
+/// Convert each integer to its correct string output.
 ///
 /// Used to return an `Iterator` for maximum flexibility, but
 /// Rust just changed to make this impossible without wrapping:
