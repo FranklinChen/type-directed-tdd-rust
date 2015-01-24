@@ -57,7 +57,7 @@ mod test {
     let actual = run_to_seq(1, 16);
     let actual_slices = actual
       .iter()
-      .map(|s| s.as_slice())
+      .map(|s| &*(*s))
       .collect::<Vec<&str>>();
     assert_eq!(actual_slices, expected_slices)
   }

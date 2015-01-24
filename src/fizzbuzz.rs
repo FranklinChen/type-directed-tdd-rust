@@ -15,7 +15,7 @@ use divisor::Divisor;
 pub type DivisorWord = (Divisor, String);
 
 /// A complete user configuration.
-#[derive(Show, PartialEq)]
+#[derive(Debug, PartialEq)]
 pub struct Config(pub Vec<DivisorWord>);
 
 //// Application config creation
@@ -24,7 +24,7 @@ impl Config {
   /// Factory method with validation.
   /// Walk the pairs to create a validated `Vec` of pairs for `Config`.
   pub fn new(pairs: &[(isize, String)])
-             -> Validation<Config, divisor::Error> {
+             -> Validation<Config, divisor::MyError> {
     let results_iter = pairs
       .iter()
       .map(|&(d, ref word)|
@@ -61,7 +61,7 @@ pub fn evaluate(&Config(ref pairs): &Config, i: isize) -> String {
 #[cfg(test)]
 mod test {
   use super::{DivisorWord, Config, evaluate};
-  use divisor::Error::{TooBig, TooSmall};
+  use divisor::MyError::{TooBig, TooSmall};
   use quickcheck::TestResult;
 
   #[test]

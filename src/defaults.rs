@@ -64,40 +64,40 @@ mod test {
   //// FizzBuzz
 
   #[test] fn test_15() {
-    assert_eq!(fizzbuzzer(15), "FizzBuzz".to_string())
+    assert_eq!(&*fizzbuzzer(15), "FizzBuzz")
   }
 
   #[test] fn test_20() {
-    assert_eq!(fizzbuzzer(20), "Buzz".to_string())
+    assert_eq!(&*fizzbuzzer(20), "Buzz")
   }
 
   #[test] fn test_6() {
-    assert_eq!(fizzbuzzer(6), "Fizz".to_string())
+    assert_eq!(&*fizzbuzzer(6), "Fizz")
   }
 
   #[test] fn test_17() {
-    assert_eq!(fizzbuzzer(17), "17".to_string())
+    assert_eq!(&*fizzbuzzer(17), "17")
   }
 
   //// FizzBuzzPop
   #[test] fn test_fizzbuzzpopper_2() {
-    assert_eq!(fizzbuzzpopper(2), "2".to_string())
+    assert_eq!(&*fizzbuzzpopper(2), "2")
   }
 
   #[test] fn test_fizzbuzzpopper_21() {
-    assert_eq!(fizzbuzzpopper(21), "FizzPop".to_string())
+    assert_eq!(&*fizzbuzzpopper(21), "FizzPop")
   }
 
   #[test] fn test_fizzbuzzpopper_9() {
-    assert_eq!(fizzbuzzpopper(9), "Fizz".to_string())
+    assert_eq!(&*fizzbuzzpopper(9), "Fizz")
   }
 
   #[test] fn test_fizzbuzzpopper_7() {
-    assert_eq!(fizzbuzzpopper(7), "Pop".to_string())
+    assert_eq!(&*fizzbuzzpopper(7), "Pop")
   }
 
   #[test] fn test_fizzbuzzpopper_35() {
-    assert_eq!(fizzbuzzpopper(35), "BuzzPop".to_string())
+    assert_eq!(&*fizzbuzzpopper(35), "BuzzPop")
   }
 
   //// QuickCheck
@@ -106,7 +106,7 @@ mod test {
   fn multiple_of_both_3_and_5() {
     fn multiple_of_both_3_and_5(i: isize) -> TestResult {
       if i % 3 == 0 && i % 5 == 0 {
-        TestResult::from_bool(fizzbuzzer(i) == "FizzBuzz".to_string())
+        TestResult::from_bool(&*fizzbuzzer(i) == "FizzBuzz")
       } else {
         TestResult::discard()
       }
@@ -118,7 +118,7 @@ mod test {
   fn multiple_of_only_3() {
     fn multiple_of_only_3(i: isize) -> TestResult {
       if i % 3 == 0 && i % 5 != 0 {
-        TestResult::from_bool(fizzbuzzer(i) == "Fizz".to_string())
+        TestResult::from_bool(&*fizzbuzzer(i) == "Fizz")
       } else {
         TestResult::discard()
       }
@@ -130,7 +130,7 @@ mod test {
   fn multiple_of_only_5() {
     fn multiple_of_only_5(i: isize) -> TestResult {
       if i % 3 != 0 && i % 5 == 0 {
-        TestResult::from_bool(fizzbuzzer(i) == "Buzz".to_string())
+        TestResult::from_bool(&*fizzbuzzer(i) == "Buzz")
       } else {
         TestResult::discard()
       }

@@ -15,7 +15,7 @@ pub fn add(a1: Option<String>, a2: Option<String>) -> Option<String> {
   match (a1, a2) {
     (Some(s1),     None)     => Some(s1),
     (None,         Some(s2)) => Some(s2),
-    (Some(mut s1), Some(s2)) => Some({ s1.push_str(s2.as_slice()); s1 }),
+    (Some(mut s1), Some(s2)) => Some({ s1.push_str(&*s2); s1 }),
     (None,         None)     => None,
   }
 }

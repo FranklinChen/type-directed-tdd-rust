@@ -1,13 +1,17 @@
 // -*- rust-indent-offset: 2 -*-
 // More compact, just for slides.
 
+use std::fmt::Display;
+use std::fmt::Formatter;
+use std::fmt::Error;
+
 use std::rand::Rng;
 use quickcheck::{Arbitrary, Gen, Shrinker, empty_shrinker};
 
 /// A legal divisor.
 /// Keep field private to prevent direct construction.
 /// Only allow creation with Divisor::new.
-#[derive(Show, PartialEq, Clone)]
+#[derive(Debug, PartialEq, Clone)]
 pub struct Divisor(isize);
 
 //// Validation of divisors.
@@ -15,20 +19,40 @@ pub struct Divisor(isize);
 pub static MIN: isize = 2;
 pub static MAX: isize = 100;
 
-#[derive(Show, PartialEq)]
-pub enum Error {
+#[derive(Debug, PartialEq)]
+pub enum MyError {
   TooSmall(isize),
   TooBig(isize)
+}
+
+impl Display for MyError {
+  fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
+    match self {
+      &MyError::TooSmall(size) => write!(f, "{} is too small", size),
+      &MyError::TooBig(size) => write!(f, "{} is too big", size),
+    }
+  }
+}
+
+impl Display for Vec<MyError> {
+  fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
+    try!(write!(f, "Errors: ["));
+    for e in self.iter() {
+      try!(write!(f, "{}", e));
+      try!(write!(f, "\n"));
+    }
+    write!(f, "]")
+  }
 }
 
 impl Divisor {
   /// Warning: this logic of if/else only makes sense if MIN <= MAX.
   /// Do not in general trust chained if/else.
-  pub fn new(d: isize) -> Result<Divisor, Error> {
+  pub fn new(d: isize) -> Result<Divisor, MyError> {
     if d < MIN {
-      Err(Error::TooSmall(d))
+      Err(MyError::TooSmall(d))
     } else if d > MAX {
-      Err(Error::TooBig(d))
+      Err(MyError::TooBig(d))
     } else {
       Ok(Divisor(d))
     }
@@ -60,7 +84,7 @@ impl Arbitrary for Divisor {
 #[cfg(test)]
 mod test {
   use super::{Divisor, MIN, MAX};
-  use super::Error::{TooBig, TooSmall};
+  use super::MyError::{TooBig, TooSmall};
   use quickcheck::TestResult;
 
   #[test]
