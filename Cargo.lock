@@ -2,7 +2,7 @@
 name = "type-directed-tdd-rust"
 version = "0.1.0"
 dependencies = [
- "quickcheck 0.1.30 (registry+https://github.com/rust-lang/crates.io-index)",
+ "quickcheck 0.1.31 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -15,7 +15,7 @@ dependencies = [
 
 [[package]]
 name = "quickcheck"
-version = "0.1.30"
+version = "0.1.31"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "log 0.1.10 (registry+https://github.com/rust-lang/crates.io-index)",
