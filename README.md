@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/FranklinChen/type-directed-tdd-rust.png)](https://travis-ci.org/FranklinChen/type-directed-tdd-rust)
 
+[![Gitter chat](https://badges.gitter.im/FranklinChen/type-directed-tdd-rust.png)](https://gitter.im/FranklinChen/type-directed-tdd-rust)
+
 ### Info
 
 This repository contains material for my presentation ["Type-Directed TDD in Rust"](http://www.meetup.com/Pittsburgh-Code-Supply/events/183483622/) given at CMU on Monday, July 21, 2014, for the [Pittsburgh Code and Supply](http://www.codeandsupply.co/) meetup.
