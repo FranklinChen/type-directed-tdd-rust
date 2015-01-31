@@ -1,5 +1,7 @@
 ## Type-directed [TDD](http://en.wikipedia.org/wiki/Test-driven_development) in [Rust](http://www.rust-lang.org/)
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/FranklinChen/type-directed-tdd-rust?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://travis-ci.org/FranklinChen/type-directed-tdd-rust.png)](https://travis-ci.org/FranklinChen/type-directed-tdd-rust)
 
 [![Gitter chat](https://badges.gitter.im/FranklinChen/type-directed-tdd-rust.png)](https://gitter.im/FranklinChen/type-directed-tdd-rust)
