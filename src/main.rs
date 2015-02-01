@@ -3,6 +3,10 @@
 
 //! FizzBuzz, implemented in a [type-directed way](https://github.com/FranklinChen/type-directed-tdd-rust) for a presentation for [Pittsburgh Code and Supply](http://codeandsupply.co/).
 
+#![feature(core)]
+#![feature(collections)]
+#![feature(rand)]
+
 extern crate quickcheck;
 
 use std::iter::range_inclusive;
