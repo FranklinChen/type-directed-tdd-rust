@@ -4,6 +4,7 @@
 //! FizzBuzz, implemented in a [type-directed way](https://github.com/FranklinChen/type-directed-tdd-rust) for a presentation for [Pittsburgh Code and Supply](http://codeandsupply.co/).
 
 extern crate quickcheck;
+extern crate rand;
 
 use std::iter::range_inclusive;
 
@@ -26,7 +27,7 @@ mod defaults;
 ///   print "FizzBuzz".
 #[cfg(not(test))]
 fn main() {
-  for result in run_to_seq(1i, 100).iter() {
+  for result in run_to_seq(1i, 100) {
     println!("{}", result)
   }
 }

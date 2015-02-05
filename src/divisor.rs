@@ -5,7 +5,7 @@ use std::fmt::Display;
 use std::fmt::Formatter;
 use std::fmt::Error;
 
-use std::rand::Rng;
+use rand::Rng;
 use quickcheck::{Arbitrary, Gen, Shrinker, empty_shrinker};
 
 /// A legal divisor.
@@ -37,7 +37,7 @@ impl Display for MyError {
 impl Display for Vec<MyError> {
   fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
     try!(write!(f, "Errors: ["));
-    for e in self.iter() {
+    for e in self {
       try!(write!(f, "{}", e));
       try!(write!(f, "\n"));
     }
