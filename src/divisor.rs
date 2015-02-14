@@ -12,17 +12,17 @@ use quickcheck::{Arbitrary, Gen, Shrinker, empty_shrinker};
 /// Keep field private to prevent direct construction.
 /// Only allow creation with Divisor::new.
 #[derive(Debug, PartialEq, Clone)]
-pub struct Divisor(isize);
+pub struct Divisor(i32);
 
 //// Validation of divisors.
 
-pub static MIN: isize = 2;
-pub static MAX: isize = 100;
+pub static MIN: i32 = 2;
+pub static MAX: i32 = 100;
 
 #[derive(Debug, PartialEq)]
 pub enum MyError {
-  TooSmall(isize),
-  TooBig(isize)
+  TooSmall(i32),
+  TooBig(i32)
 }
 
 impl Display for MyError {
@@ -48,7 +48,7 @@ impl Display for Vec<MyError> {
 impl Divisor {
   /// Warning: this logic of if/else only makes sense if MIN <= MAX.
   /// Do not in general trust chained if/else.
-  pub fn new(d: isize) -> Result<Divisor, MyError> {
+  pub fn new(d: i32) -> Result<Divisor, MyError> {
     if d < MIN {
       Err(MyError::TooSmall(d))
     } else if d > MAX {
@@ -58,7 +58,7 @@ impl Divisor {
     }
   }
 
-  pub fn get(&self) -> isize {
+  pub fn get(&self) -> i32 {
     match self {
       &Divisor(d) => d
     }
@@ -83,8 +83,8 @@ impl Arbitrary for Divisor {
 
 #[cfg(test)]
 mod test {
-  use super::{Divisor, MIN, MAX};
-  use super::MyError::{TooBig, TooSmall};
+  use super::*;
+  use super::MyError::*;
   use quickcheck::TestResult;
 
   #[test]
@@ -94,7 +94,7 @@ mod test {
 
   #[test]
   fn validate_all_cases() {
-    fn validate_all_cases(d: isize) -> TestResult {
+    fn validate_all_cases(d: i32) -> TestResult {
       match (d >= MIN, d <= MAX) {
         (true, true) =>
           TestResult::from_bool(Divisor::new(d) == Ok(Divisor(d))),
@@ -106,6 +106,6 @@ mod test {
           TestResult::error("Impossible combination"),
       }
     }
-    ::quickcheck::quickcheck(validate_all_cases as fn(isize) -> TestResult)
+    ::quickcheck::quickcheck(validate_all_cases as fn(i32) -> TestResult)
   }
 }

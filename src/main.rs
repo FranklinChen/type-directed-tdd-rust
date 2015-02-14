@@ -6,8 +6,6 @@
 extern crate quickcheck;
 extern crate rand;
 
-use std::iter::range_inclusive;
-
 mod option_utils;
 mod validation;
 
@@ -27,7 +25,7 @@ mod defaults;
 ///   print "FizzBuzz".
 #[cfg(not(test))]
 fn main() {
-  for result in run_to_seq(1i, 100) {
+  for result in run_to_seq(1, 100) {
     println!("{}", result)
   }
 }
@@ -39,10 +37,10 @@ fn main() {
 /// http://stackoverflow.com/questions/27496278/how-to-return-a-generic-map-struct/27497032#27497032
 /// TODO: wait for Rust to provide clean way of returning `Iterator`.
 #[inline]
-fn run_to_seq(start: isize, end: isize) -> Vec<String> {
-  range_inclusive(start, end)
+fn run_to_seq(start: i32, end: i32) -> Vec<String> {
+  (start .. end+1)
     .map(defaults::fizzbuzzer)
-    .collect::<Vec<String>>()
+    .collect()
 }
 
 #[cfg(test)]

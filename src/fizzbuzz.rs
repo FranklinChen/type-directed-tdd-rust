@@ -23,7 +23,7 @@ pub struct Config(pub Vec<DivisorWord>);
 impl Config {
   /// Factory method with validation.
   /// Walk the pairs to create a validated `Vec` of pairs for `Config`.
-  pub fn new(pairs: &[(isize, String)])
+  pub fn new(pairs: &[(i32, String)])
              -> Validation<Config, divisor::MyError> {
     let results_iter = pairs
       .iter()
@@ -37,7 +37,7 @@ impl Config {
 
 /// Apply the rule for a particular mapping.
 fn rule(pair: &DivisorWord,
-            i: isize) -> Option<String> {
+            i: i32) -> Option<String> {
   let (ref d, ref word) = *pair;
   if i % d.get() == 0 {
     Some(word.clone())
@@ -50,7 +50,7 @@ fn rule(pair: &DivisorWord,
 /// Use an optimization by converting from `&str` to `String`
 /// right away in order to append to the first `String` in repeated
 /// adds.
-pub fn evaluate(&Config(ref pairs): &Config, i: isize) -> String {
+pub fn evaluate(&Config(ref pairs): &Config, i: i32) -> String {
   pairs
     .iter()
     .map(|pair| rule(pair, i))
@@ -60,8 +60,8 @@ pub fn evaluate(&Config(ref pairs): &Config, i: isize) -> String {
 
 #[cfg(test)]
 mod test {
-  use super::{DivisorWord, Config, evaluate};
-  use divisor::MyError::{TooBig, TooSmall};
+  use super::*;
+  use divisor::MyError::*;
   use quickcheck::TestResult;
 
   #[test]
@@ -82,7 +82,7 @@ mod test {
   fn d1_but_not_d2() {
     fn d1_but_not_d2(dw1: DivisorWord,
                      dw2: DivisorWord,
-                     i: isize) -> TestResult {
+                     i: i32) -> TestResult {
       let config = Config(vec![dw1.clone(),
                                dw2.clone()]);
       let (d1, w1) = dw1;
@@ -94,7 +94,7 @@ mod test {
         TestResult::discard()
       }
     }
-    ::quickcheck::quickcheck(d1_but_not_d2 as fn(DivisorWord, DivisorWord, isize) -> TestResult);
+    ::quickcheck::quickcheck(d1_but_not_d2 as fn(DivisorWord, DivisorWord, i32) -> TestResult);
   }
 
   // TODO the other three cases are similar.

@@ -5,7 +5,7 @@ use fizzbuzz;
 use fizzbuzz::Config;
 
 #[allow(dead_code)]
-fn buggy_fizzbuzzer(i: isize) -> String {
+fn buggy_fizzbuzzer(i: i32) -> String {
   if i % 3 == 0 {
     "Fizz".to_string()
   } else if i % 5 == 0 {
@@ -18,7 +18,7 @@ fn buggy_fizzbuzzer(i: isize) -> String {
 }
 
 #[allow(dead_code)]
-fn old_fizzbuzzer(i: isize) -> String {
+fn old_fizzbuzzer(i: i32) -> String {
   match (i % 3 == 0, i % 5 == 0) {
     (true,  false) => "Fizz".to_string(),
     (false, true)  => "Buzz".to_string(),
@@ -36,7 +36,7 @@ fn fizzbuzzer_config() -> Config {
     .unwrap()
 }
 
-pub fn fizzbuzzer(i: isize) -> String {
+pub fn fizzbuzzer(i: i32) -> String {
   fizzbuzz::evaluate(&fizzbuzzer_config(), i)
 }
 
@@ -50,14 +50,14 @@ fn fizzbuzzpopper_config() -> Config {
     .unwrap()
 }
 
-pub fn fizzbuzzpopper(i: isize) -> String {
+pub fn fizzbuzzpopper(i: i32) -> String {
   fizzbuzz::evaluate(&fizzbuzzpopper_config(), i)
 }
 
 // Rust needs a test framework allowing fixtures.
 #[cfg(test)]
 mod test {
-  use super::{fizzbuzzer, fizzbuzzpopper};
+  use super::*;
 
   use quickcheck::TestResult;
 
@@ -104,49 +104,49 @@ mod test {
 
   #[test]
   fn multiple_of_both_3_and_5() {
-    fn multiple_of_both_3_and_5(i: isize) -> TestResult {
+    fn multiple_of_both_3_and_5(i: i32) -> TestResult {
       if i % 3 == 0 && i % 5 == 0 {
         TestResult::from_bool(&*fizzbuzzer(i) == "FizzBuzz")
       } else {
         TestResult::discard()
       }
     }
-    ::quickcheck::quickcheck(multiple_of_both_3_and_5 as fn(isize) -> TestResult)
+    ::quickcheck::quickcheck(multiple_of_both_3_and_5 as fn(i32) -> TestResult)
   }
 
   #[test]
   fn multiple_of_only_3() {
-    fn multiple_of_only_3(i: isize) -> TestResult {
+    fn multiple_of_only_3(i: i32) -> TestResult {
       if i % 3 == 0 && i % 5 != 0 {
         TestResult::from_bool(&*fizzbuzzer(i) == "Fizz")
       } else {
         TestResult::discard()
       }
     }
-    ::quickcheck::quickcheck(multiple_of_only_3 as fn(isize) -> TestResult)
+    ::quickcheck::quickcheck(multiple_of_only_3 as fn(i32) -> TestResult)
   }
 
   #[test]
   fn multiple_of_only_5() {
-    fn multiple_of_only_5(i: isize) -> TestResult {
+    fn multiple_of_only_5(i: i32) -> TestResult {
       if i % 3 != 0 && i % 5 == 0 {
         TestResult::from_bool(&*fizzbuzzer(i) == "Buzz")
       } else {
         TestResult::discard()
       }
     }
-    ::quickcheck::quickcheck(multiple_of_only_5 as fn(isize) -> TestResult)
+    ::quickcheck::quickcheck(multiple_of_only_5 as fn(i32) -> TestResult)
   }
 
   #[test]
   fn not_multiple_of_3_and_5() {
-    fn not_multiple_of_3_and_5(i: isize) -> TestResult {
+    fn not_multiple_of_3_and_5(i: i32) -> TestResult {
       if i % 3 != 0 && i % 5 != 0 {
         TestResult::from_bool(fizzbuzzer(i) == i.to_string())
       } else {
         TestResult::discard()
       }
     }
-    ::quickcheck::quickcheck(not_multiple_of_3_and_5 as fn(isize) -> TestResult);
+    ::quickcheck::quickcheck(not_multiple_of_3_and_5 as fn(i32) -> TestResult);
   }
 }
