@@ -3,7 +3,7 @@
 
 use std::fmt::Display;
 use std::fmt::Formatter;
-use std::fmt::Error;
+use std::fmt;
 
 use rand::Rng;
 use quickcheck::{Arbitrary, Gen, Shrinker, empty_shrinker};
@@ -20,22 +20,22 @@ pub static MIN: i32 = 2;
 pub static MAX: i32 = 100;
 
 #[derive(Debug, PartialEq)]
-pub enum MyError {
+pub enum Error {
   TooSmall(i32),
   TooBig(i32)
 }
 
-impl Display for MyError {
-  fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
+impl Display for Error {
+  fn fmt(&self, f: &mut Formatter) -> Result<(), fmt::Error> {
     match *self {
-      MyError::TooSmall(size) => write!(f, "{} is too small", size),
-      MyError::TooBig(size) => write!(f, "{} is too big", size),
+      Error::TooSmall(size) => write!(f, "{} is too small", size),
+      Error::TooBig(size) => write!(f, "{} is too big", size),
     }
   }
 }
 
-impl Display for Vec<MyError> {
-  fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
+impl Display for Vec<Error> {
+  fn fmt(&self, f: &mut Formatter) -> Result<(), fmt::Error> {
     try!(write!(f, "Errors: ["));
     for e in self {
       try!(write!(f, "{}", e));
@@ -48,11 +48,11 @@ impl Display for Vec<MyError> {
 impl Divisor {
   /// Warning: this logic of if/else only makes sense if MIN <= MAX.
   /// Do not in general trust chained if/else.
-  pub fn new(d: i32) -> Result<Divisor, MyError> {
+  pub fn new(d: i32) -> Result<Divisor, Error> {
     if d < MIN {
-      Err(MyError::TooSmall(d))
+      Err(Error::TooSmall(d))
     } else if d > MAX {
-      Err(MyError::TooBig(d))
+      Err(Error::TooBig(d))
     } else {
       Ok(Divisor(d))
     }
@@ -84,7 +84,7 @@ impl Arbitrary for Divisor {
 #[cfg(test)]
 mod test {
   use super::*;
-  use super::MyError::*;
+  use super::Error::*;
   use quickcheck::TestResult;
 
   #[test]

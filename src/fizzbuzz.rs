@@ -24,7 +24,7 @@ impl Config {
   /// Factory method with validation.
   /// Walk the pairs to create a validated `Vec` of pairs for `Config`.
   pub fn new(pairs: &[(i32, String)])
-             -> Validation<Config, divisor::MyError> {
+             -> Validation<Config, divisor::Error> {
     let results_iter = pairs
       .iter()
       .map(|&(d, ref word_ref)|
@@ -61,7 +61,7 @@ pub fn evaluate(&Config(ref pairs): &Config, i: i32) -> String {
 #[cfg(test)]
 mod test {
   use super::*;
-  use divisor::MyError::*;
+  use divisor::Error::*;
   use quickcheck::TestResult;
 
   #[test]
