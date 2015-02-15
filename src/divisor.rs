@@ -27,9 +27,9 @@ pub enum MyError {
 
 impl Display for MyError {
   fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
-    match self {
-      &MyError::TooSmall(size) => write!(f, "{} is too small", size),
-      &MyError::TooBig(size) => write!(f, "{} is too big", size),
+    match *self {
+      MyError::TooSmall(size) => write!(f, "{} is too small", size),
+      MyError::TooBig(size) => write!(f, "{} is too big", size),
     }
   }
 }
@@ -59,8 +59,8 @@ impl Divisor {
   }
 
   pub fn get(&self) -> i32 {
-    match self {
-      &Divisor(d) => d
+    match *self {
+      Divisor(d) => d
     }
   }
 }
