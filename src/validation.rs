@@ -16,8 +16,8 @@ pub fn single<T, E>(result: Result<T, E>) -> Validation<T, E> {
 /// Important: any error causes the whole result to be an error!
 pub fn add_with<V, T, U, E, F>(result1: Validation<V, E>,
                             result2: Validation<T, E>,
-                            mut f: F) -> Validation<U, E>
-  where F: FnMut(V, T) -> U
+                            f: F) -> Validation<U, E>
+  where F: Fn(V, T) -> U
 {
   match (result1, result2) {
     (Ok(v),       Ok(t))   => Ok(f(v, t)),
