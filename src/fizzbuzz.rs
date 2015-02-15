@@ -27,8 +27,8 @@ impl Config {
              -> Validation<Config, divisor::MyError> {
     let results_iter = pairs
       .iter()
-      .map(|&(d, ref word)|
-           Divisor::new(d).map(|div| (div, word.clone())));
+      .map(|&(d, ref word_ref)|
+           Divisor::new(d).map(|div| (div, word_ref.clone())));
 
     validation::combine_results(results_iter)
       .map(Config)
@@ -38,9 +38,9 @@ impl Config {
 /// Apply the rule for a particular mapping.
 fn rule(pair: &DivisorWord,
             i: i32) -> Option<String> {
-  let (ref d, ref word) = *pair;
-  if i % d.get() == 0 {
-    Some(word.clone())
+  let (ref d_ref, ref word_ref) = *pair;
+  if i % d_ref.get() == 0 {
+    Some(word_ref.clone())
   } else {
     None
   }
@@ -53,7 +53,7 @@ fn rule(pair: &DivisorWord,
 pub fn evaluate(&Config(ref pairs): &Config, i: i32) -> String {
   pairs
     .iter()
-    .map(|pair| rule(pair, i))
+    .map(|pair_ref| rule(pair_ref, i))
     .fold(None, option_utils::add)
     .unwrap_or_else(|| i.to_string())
 }
