@@ -6,7 +6,7 @@ use std::fmt::Formatter;
 use std::fmt;
 
 use rand::Rng;
-use quickcheck::{Arbitrary, Gen, Shrinker, empty_shrinker};
+use quickcheck::{Arbitrary, Gen, empty_shrinker};
 
 /// A legal divisor.
 /// Keep field private to prevent direct construction.
@@ -67,7 +67,7 @@ impl Divisor {
 
 // For quickcheck.
 impl Arbitrary for Divisor {
-  fn arbitrary<G: Gen>(g: &mut G) -> Divisor {
+  fn arbitrary<G: Gen>(g: &mut G) -> Self {
     let d = g.gen_range(MIN, MAX+1);
     //Divisor(d)
     // It is best to use our safe API even though in this case
@@ -75,7 +75,7 @@ impl Arbitrary for Divisor {
     Divisor::new(d).unwrap()
   }
 
-  fn shrink(&self) -> Box<Shrinker<Divisor>+'static> {
+  fn shrink(&self) -> Box<Iterator<Item=Self>+'static> {
     // TODO: no shrinker for now.
     empty_shrinker()
   }
