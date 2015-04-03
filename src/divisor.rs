@@ -34,17 +34,6 @@ impl Display for Error {
   }
 }
 
-impl Display for Vec<Error> {
-  fn fmt(&self, f: &mut Formatter) -> Result<(), fmt::Error> {
-    try!(write!(f, "Errors: ["));
-    for e in self {
-      try!(write!(f, "{}", e));
-      try!(write!(f, "\n"));
-    }
-    write!(f, "]")
-  }
-}
-
 impl Divisor {
   /// Warning: this logic of if/else only makes sense if MIN <= MAX.
   /// Do not in general trust chained if/else.
