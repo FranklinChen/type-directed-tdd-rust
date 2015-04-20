@@ -15,14 +15,14 @@ pub fn single<T, E>(result: Result<T, E>) -> Validation<T, E> {
 /// Combine successful results with `f`, but accumulate errors.
 /// Important: any error causes the whole result to be an error!
 pub fn add_with<V, T, U, E, F>(result1: Validation<V, E>,
-                            result2: Validation<T, E>,
-                            f: F) -> Validation<U, E>
+                               result2: Validation<T, E>,
+                               f: F) -> Validation<U, E>
   where F: Fn(V, T) -> U
 {
   match (result1, result2) {
     (Ok(v),       Ok(t))   => Ok(f(v, t)),
-    (Ok(_),       Err(e2)) => Err(e2),
-    (Err(e1),     Ok(_))   => Err(e1),
+    (Ok(..),      Err(e2)) => Err(e2),
+    (Err(e1),     Ok(..))  => Err(e1),
     (Err(mut e1), Err(e2)) => Err({ e1.extend(e2.into_iter()); e1 })
   }
 }
