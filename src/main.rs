@@ -26,16 +26,13 @@ mod defaults;
 #[cfg(not(test))]
 fn main() {
   for result in run_to_seq(1, 100) {
-    println!("{}", result)
+    println!("{}", result);
   }
 }
 
 /// Convert each integer to its correct string output.
 ///
-/// Used to return an `Iterator` for maximum flexibility, but
-/// Rust just changed to make this impossible without wrapping:
-/// http://stackoverflow.com/questions/27496278/how-to-return-a-generic-map-struct/27497032#27497032
-/// TODO: wait for Rust to provide clean way of returning `Iterator`.
+/// Return a Vec for convenience. Could return an iterator instead.
 #[inline]
 fn run_to_seq(start: i32, end: i32) -> Vec<String> {
   (start .. end+1)
@@ -49,15 +46,14 @@ mod test {
 
   #[test]
   fn test_1_to_16() {
-    let expected_slices = vec![
-      "1", "2", "Fizz", "4", "Buzz", "Fizz",
-      "7", "8", "Fizz", "Buzz", "11", "Fizz",
-      "13", "14", "FizzBuzz", "16"];
+    let expected: Vec<String> =
+      ["1", "2", "Fizz", "4", "Buzz", "Fizz",
+       "7", "8", "Fizz", "Buzz", "11", "Fizz",
+       "13", "14", "FizzBuzz", "16"]
+      .into_iter()
+      .map(|s| s.to_string())
+      .collect();
     let actual = run_to_seq(1, 16);
-    let actual_slices = actual
-      .iter()
-      .map(|s_ref| &*(*s_ref))
-      .collect::<Vec<&str>>();
-    assert_eq!(actual_slices, expected_slices)
+    assert_eq!(actual, expected);
   }
 }

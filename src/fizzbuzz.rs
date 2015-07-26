@@ -27,8 +27,9 @@ impl Config {
              -> Validation<Config, divisor::Error> {
     let results_iter = pairs
       .iter()
-      .map(|&(d, ref word_ref)|
-           Divisor::new(d).map(|div| (div, word_ref.clone())));
+      .cloned()
+      .map(|(d, word)|
+           Divisor::new(d).map(|div| (div, word)));
 
     validation::combine_results(results_iter)
       .map(Config)
@@ -37,19 +38,17 @@ impl Config {
 
 /// Apply the rule for a particular mapping.
 fn rule(pair: &DivisorWord,
-            i: i32) -> Option<String> {
+        i: i32) -> Option<&String> {
   let (ref d_ref, ref word_ref) = *pair;
   if i % d_ref.get() == 0 {
-    Some(word_ref.clone())
+    Some(word_ref)
   } else {
     None
   }
 }
 
-// TODO Use closures to "compile", when Rust supports that.
-/// Use an optimization by converting from `&str` to `String`
-/// right away in order to append to the first `String` in repeated
-/// adds.
+// TODO Use closures to "compile" by staging.
+/// Evaluate the rule for each DivisorWord, and combine the results.
 pub fn evaluate(&Config(ref pairs): &Config, i: i32) -> String {
   pairs
     .iter()
@@ -66,25 +65,27 @@ mod test {
 
   #[test]
   fn validation_works() {
-    let actual = Config::new(&[(3, "Fizz".to_string()),
-                              (101, "Buzz".to_string()),
-                              (-5, "Pop".to_string()),
-                              (102, "Boom".to_string())]);
+    let actual = Config::new(&[(3, "Fizz".to_owned()),
+                               (101, "Buzz".to_owned()),
+                               (-5, "Pop".to_owned()),
+                               (102, "Boom".to_owned())]);
     let expected = Err(vec![TooBig(101),
                             TooSmall(-5),
                             TooBig(102)]);
     assert_eq!(actual, expected);
   }
 
-  // TODO nest the checks, staging the generation of i only after
-  // generation of Config.
+  /// TODO nest the checks, staging the generation of i only after
+  /// generation of Config.
+  ///
+  /// [Blocked by Rust bug?](https://github.com/BurntSushi/quickcheck/issues/56)
   #[test]
   fn d1_but_not_d2() {
     fn d1_but_not_d2(dw1: DivisorWord,
                      dw2: DivisorWord,
                      i: i32) -> TestResult {
-      let config = Config(vec![dw1.clone(),
-                               dw2.clone()]);
+      let config = Config(vec![dw1.to_owned(),
+                               dw2.to_owned()]);
       let (d1, w1) = dw1;
       let (d2, _) = dw2;
 
@@ -94,7 +95,8 @@ mod test {
         TestResult::discard()
       }
     }
-    ::quickcheck::quickcheck(d1_but_not_d2 as fn(DivisorWord, DivisorWord, i32) -> TestResult);
+    ::quickcheck::quickcheck(
+      d1_but_not_d2 as fn(DivisorWord, DivisorWord, i32) -> TestResult);
   }
 
   // TODO the other three cases are similar.

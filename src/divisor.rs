@@ -1,6 +1,9 @@
 // -*- rust-indent-offset: 2 -*-
 // More compact, just for slides.
 
+//! Validation of divisors.
+
+
 use std::fmt::Display;
 use std::fmt::Formatter;
 use std::fmt;
@@ -14,11 +17,10 @@ use quickcheck::{Arbitrary, Gen, empty_shrinker};
 #[derive(Debug, PartialEq, Clone)]
 pub struct Divisor(i32);
 
-//// Validation of divisors.
-
 pub static MIN: i32 = 2;
 pub static MAX: i32 = 100;
 
+/// Our custom error type when failing to construct a Divisor.
 #[derive(Debug, PartialEq)]
 pub enum Error {
   TooSmall(i32),

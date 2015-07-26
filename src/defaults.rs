@@ -7,11 +7,11 @@ use fizzbuzz::Config;
 #[allow(dead_code)]
 fn buggy_fizzbuzzer(i: i32) -> String {
   if i % 3 == 0 {
-    "Fizz".to_string()
+    "Fizz".to_owned()
   } else if i % 5 == 0 {
-    "Buzz".to_string()
+    "Buzz".to_owned()
   } else if i % 3 == 0 && i % 5 == 0 {
-    "FizzBuzz".to_string()
+    "FizzBuzz".to_owned()
   } else {
     i.to_string()
   }
@@ -20,9 +20,9 @@ fn buggy_fizzbuzzer(i: i32) -> String {
 #[allow(dead_code)]
 fn old_fizzbuzzer(i: i32) -> String {
   match (i % 3 == 0, i % 5 == 0) {
-    (true,  false) => "Fizz".to_string(),
-    (false, true)  => "Buzz".to_string(),
-    (true,  true)  => "FizzBuzz".to_string(),
+    (true,  false) => "Fizz".to_owned(),
+    (false, true)  => "Buzz".to_owned(),
+    (true,  true)  => "FizzBuzz".to_owned(),
     (false, false) => i.to_string(),
   }
 }
@@ -31,8 +31,8 @@ fn old_fizzbuzzer(i: i32) -> String {
 // validation and also use of Vector.
 #[inline]
 fn fizzbuzzer_config() -> Config {
-  Config::new(&[(3, "Fizz".to_string()),
-               (5, "Buzz".to_string())])
+  Config::new(&[(3, "Fizz".to_owned()),
+                (5, "Buzz".to_owned())])
     .unwrap()
 }
 
@@ -44,9 +44,9 @@ pub fn fizzbuzzer(i: i32) -> String {
 // validation and also use of Vector.
 #[inline]
 fn fizzbuzzpopper_config() -> Config {
-  Config::new(&[(3, "Fizz".to_string()),
-               (5, "Buzz".to_string()),
-               (7, "Pop".to_string())])
+  Config::new(&[(3, "Fizz".to_owned()),
+                (5, "Buzz".to_owned()),
+                (7, "Pop".to_owned())])
     .unwrap()
 }
 

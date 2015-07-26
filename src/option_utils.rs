@@ -11,11 +11,11 @@
   of the first string. One could imagine a special ReuseAdd trait
   to support any type that knows how to reuse its internal buffer.
 */
-pub fn add(a1: Option<String>, a2: Option<String>) -> Option<String> {
+pub fn add(a1: Option<String>, a2: Option<&String>) -> Option<String> {
   match (a1, a2) {
     (Some(s1),     None)     => Some(s1),
-    (None,         Some(s2)) => Some(s2),
-    (Some(mut s1), Some(s2)) => Some({ s1.push_str(&*s2); s1 }),
+    (None,         Some(s2)) => Some(s2.to_owned()),
+    (Some(mut s1), Some(s2)) => Some({ s1.push_str(s2); s1 }),
     (None,         None)     => None,
   }
 }

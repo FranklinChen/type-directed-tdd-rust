@@ -14,6 +14,8 @@ pub fn single<T, E>(result: Result<T, E>) -> Validation<T, E> {
 
 /// Combine successful results with `f`, but accumulate errors.
 /// Important: any error causes the whole result to be an error!
+///
+/// Optimization trick: mutate result1's error vector.
 pub fn add_with<V, T, U, E, F>(result1: Validation<V, E>,
                                result2: Validation<T, E>,
                                f: F) -> Validation<U, E>
@@ -28,6 +30,8 @@ pub fn add_with<V, T, U, E, F>(result1: Validation<V, E>,
 }
 
 /// Combine a stream of Result to a Validation, accumulating successes.
+///
+/// Optimization trick: mutate success vector.
 pub fn combine_results<T,
                        E,
                        I>(iter: I)
