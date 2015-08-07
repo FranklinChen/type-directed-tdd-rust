@@ -19,3 +19,4 @@ name = "fizzbuzz"
 
 quickcheck = "*"
 rand = "*"
+itertools = "*"

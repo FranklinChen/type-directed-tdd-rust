@@ -5,6 +5,7 @@
 
 extern crate quickcheck;
 extern crate rand;
+extern crate itertools;
 
 mod option_utils;
 mod validation;
@@ -12,6 +13,9 @@ mod validation;
 mod divisor;
 mod fizzbuzz;
 mod defaults;
+
+use std::ops::Range;
+use std::iter::Map;
 
 /// Solve the [FizzBuzz programming problem](http://c2.com/cgi/wiki?FizzBuzzTest).
 ///
@@ -32,28 +36,28 @@ fn main() {
 
 /// Convert each integer to its correct string output.
 ///
-/// Return a Vec for convenience. Could return an iterator instead.
+/// Return an iterator for the most flexibility.
 #[inline]
-fn run_to_seq(start: i32, end: i32) -> Vec<String> {
+fn run_to_seq(start: i32, end: i32)
+                 -> Map<Range<i32>, fn(i32) -> String> {
   (start .. end+1)
     .map(defaults::fizzbuzzer)
-    .collect()
 }
 
 #[cfg(test)]
 mod test {
   use super::run_to_seq;
+  use itertools;
 
   #[test]
   fn test_1_to_16() {
-    let expected: Vec<String> =
-      ["1", "2", "Fizz", "4", "Buzz", "Fizz",
-       "7", "8", "Fizz", "Buzz", "11", "Fizz",
-       "13", "14", "FizzBuzz", "16"]
+    let expected =
+      vec!["1", "2", "Fizz", "4", "Buzz", "Fizz",
+           "7", "8", "Fizz", "Buzz", "11", "Fizz",
+           "13", "14", "FizzBuzz", "16"]
       .into_iter()
-      .map(|s| s.to_string())
-      .collect();
+      .map(|s| s.to_owned());
     let actual = run_to_seq(1, 16);
-    assert_eq!(actual, expected);
+    itertools::assert_equal(actual, expected);
   }
 }
