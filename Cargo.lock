@@ -2,8 +2,8 @@
 name = "type-directed-tdd-rust"
 version = "0.1.0"
 dependencies = [
- "itertools 0.3.25 (registry+https://github.com/rust-lang/crates.io-index)",
- "quickcheck 0.2.23 (registry+https://github.com/rust-lang/crates.io-index)",
+ "itertools 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "quickcheck 0.2.24 (registry+https://github.com/rust-lang/crates.io-index)",
  "rand 0.3.11 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -18,7 +18,7 @@ dependencies = [
 
 [[package]]
 name = "itertools"
-version = "0.3.25"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
@@ -36,7 +36,7 @@ dependencies = [
 
 [[package]]
 name = "quickcheck"
-version = "0.2.23"
+version = "0.2.24"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "log 0.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
