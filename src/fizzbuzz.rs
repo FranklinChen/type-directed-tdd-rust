@@ -96,7 +96,7 @@ mod test {
       }
     }
     ::quickcheck::quickcheck(
-      d1_but_not_d2 as fn(DivisorWord, DivisorWord, i32) -> TestResult);
+      d1_but_not_d2 as fn(_, _, _) -> _);
   }
 
   // TODO the other three cases are similar.

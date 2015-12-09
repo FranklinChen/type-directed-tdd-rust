@@ -111,7 +111,7 @@ mod test {
         TestResult::discard()
       }
     }
-    ::quickcheck::quickcheck(multiple_of_both_3_and_5 as fn(i32) -> TestResult)
+    ::quickcheck::quickcheck(multiple_of_both_3_and_5 as fn(_) -> _)
   }
 
   #[test]
@@ -123,7 +123,7 @@ mod test {
         TestResult::discard()
       }
     }
-    ::quickcheck::quickcheck(multiple_of_only_3 as fn(i32) -> TestResult)
+    ::quickcheck::quickcheck(multiple_of_only_3 as fn(_) -> _)
   }
 
   #[test]
@@ -135,7 +135,7 @@ mod test {
         TestResult::discard()
       }
     }
-    ::quickcheck::quickcheck(multiple_of_only_5 as fn(i32) -> TestResult)
+    ::quickcheck::quickcheck(multiple_of_only_5 as fn(_) -> _)
   }
 
   #[test]
@@ -147,6 +147,6 @@ mod test {
         TestResult::discard()
       }
     }
-    ::quickcheck::quickcheck(not_multiple_of_3_and_5 as fn(i32) -> TestResult);
+    ::quickcheck::quickcheck(not_multiple_of_3_and_5 as fn(_) -> _);
   }
 }

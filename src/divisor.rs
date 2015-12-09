@@ -97,6 +97,6 @@ mod test {
           TestResult::error("Impossible combination"),
       }
     }
-    ::quickcheck::quickcheck(validate_all_cases as fn(i32) -> TestResult)
+    ::quickcheck::quickcheck(validate_all_cases as fn(_) -> _)
   }
 }
