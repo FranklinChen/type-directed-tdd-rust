@@ -8,7 +8,6 @@ use std::fmt::Display;
 use std::fmt::Formatter;
 use std::fmt;
 
-use rand::Rng;
 use quickcheck::{Arbitrary, Gen, empty_shrinker};
 
 /// A legal divisor.
