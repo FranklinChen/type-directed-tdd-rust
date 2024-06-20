@@ -10,10 +10,12 @@ repository = "https://github.com/FranklinChen/type-directed-tdd-rust"
 readme = "README.md"
 keywords = ["fizzbuzz"]
 license = "MIT"
+edition = "2021"
 
 [[bin]]
 
 name = "fizzbuzz"
+path = "src/main.rs"
 
 [dependencies]
 

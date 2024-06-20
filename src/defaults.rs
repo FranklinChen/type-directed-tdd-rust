@@ -1,11 +1,11 @@
 // -*- rust-indent-offset: 2 -*-
 // More compact, just for slides.
 
-use fizzbuzz;
-use fizzbuzz::Config;
+use crate::fizzbuzz;
+use crate::fizzbuzz::Config;
 
 #[allow(dead_code)]
-fn buggy_fizzbuzzer(i: i32) -> String {
+fn buggy_fizzbuzzer(i: u32) -> String {
   if i % 3 == 0 {
     "Fizz".to_owned()
   } else if i % 5 == 0 {
@@ -18,7 +18,7 @@ fn buggy_fizzbuzzer(i: i32) -> String {
 }
 
 #[allow(dead_code)]
-fn old_fizzbuzzer(i: i32) -> String {
+fn old_fizzbuzzer(i: u32) -> String {
   match (i % 3 == 0, i % 5 == 0) {
     (true,  false) => "Fizz".to_owned(),
     (false, true)  => "Buzz".to_owned(),
@@ -36,7 +36,7 @@ fn fizzbuzzer_config() -> Config {
     .unwrap()
 }
 
-pub fn fizzbuzzer(i: i32) -> String {
+pub fn fizzbuzzer(i: u32) -> String {
   fizzbuzz::evaluate(&fizzbuzzer_config(), i)
 }
 
@@ -50,7 +50,7 @@ fn fizzbuzzpopper_config() -> Config {
     .unwrap()
 }
 
-pub fn fizzbuzzpopper(i: i32) -> String {
+pub fn fizzbuzzpopper(i: u32) -> String {
   fizzbuzz::evaluate(&fizzbuzzpopper_config(), i)
 }
 
@@ -104,7 +104,7 @@ mod test {
 
   #[test]
   fn multiple_of_both_3_and_5() {
-    fn multiple_of_both_3_and_5(i: i32) -> TestResult {
+    fn multiple_of_both_3_and_5(i: u32) -> TestResult {
       if i % 3 == 0 && i % 5 == 0 {
         TestResult::from_bool(&*fizzbuzzer(i) == "FizzBuzz")
       } else {
@@ -116,7 +116,7 @@ mod test {
 
   #[test]
   fn multiple_of_only_3() {
-    fn multiple_of_only_3(i: i32) -> TestResult {
+    fn multiple_of_only_3(i: u32) -> TestResult {
       if i % 3 == 0 && i % 5 != 0 {
         TestResult::from_bool(&*fizzbuzzer(i) == "Fizz")
       } else {
@@ -128,7 +128,7 @@ mod test {
 
   #[test]
   fn multiple_of_only_5() {
-    fn multiple_of_only_5(i: i32) -> TestResult {
+    fn multiple_of_only_5(i: u32) -> TestResult {
       if i % 3 != 0 && i % 5 == 0 {
         TestResult::from_bool(&*fizzbuzzer(i) == "Buzz")
       } else {
@@ -140,7 +140,7 @@ mod test {
 
   #[test]
   fn not_multiple_of_3_and_5() {
-    fn not_multiple_of_3_and_5(i: i32) -> TestResult {
+    fn not_multiple_of_3_and_5(i: u32) -> TestResult {
       if i % 3 != 0 && i % 5 != 0 {
         TestResult::from_bool(fizzbuzzer(i) == i.to_string())
       } else {

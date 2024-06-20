@@ -1,13 +1,13 @@
 // -*- rust-indent-offset: 2 -*-
 // More compact, just for slides.
 
-use option_utils;
+use crate::option_utils;
 
-use validation;
-use validation::Validation;
+use crate::validation;
+use crate::validation::Validation;
 
-use divisor;
-use divisor::Divisor;
+use crate::divisor;
+use crate::divisor::Divisor;
 
 //// Application configuration.
 
@@ -23,7 +23,7 @@ pub struct Config(pub Vec<DivisorWord>);
 impl Config {
   /// Factory method with validation.
   /// Walk the pairs to create a validated `Vec` of pairs for `Config`.
-  pub fn new(pairs: &[(i32, String)])
+  pub fn new(pairs: &[(u32, String)])
              -> Validation<Config, divisor::Error> {
     let results_iter = pairs
       .iter()
@@ -38,7 +38,7 @@ impl Config {
 
 /// Apply the rule for a particular mapping.
 fn rule(pair: &DivisorWord,
-        i: i32) -> Option<&String> {
+        i: u32) -> Option<&String> {
   let (ref d_ref, ref word_ref) = *pair;
   if i % d_ref.get() == 0 {
     Some(word_ref)
@@ -49,7 +49,7 @@ fn rule(pair: &DivisorWord,
 
 // TODO Use closures to "compile" by staging.
 /// Evaluate the rule for each DivisorWord, and combine the results.
-pub fn evaluate(&Config(ref pairs): &Config, i: i32) -> String {
+pub fn evaluate(&Config(ref pairs): &Config, i: u32) -> String {
   pairs
     .iter()
     .map(|pair_ref| rule(pair_ref, i))
@@ -67,10 +67,10 @@ mod test {
   fn validation_works() {
     let actual = Config::new(&[(3, "Fizz".to_owned()),
                                (101, "Buzz".to_owned()),
-                               (-5, "Pop".to_owned()),
+                               (1, "Pop".to_owned()),
                                (102, "Boom".to_owned())]);
     let expected = Err(vec![TooBig(101),
-                            TooSmall(-5),
+                            TooSmall(1),
                             TooBig(102)]);
     assert_eq!(actual, expected);
   }
@@ -83,7 +83,7 @@ mod test {
   fn d1_but_not_d2() {
     fn d1_but_not_d2(dw1: DivisorWord,
                      dw2: DivisorWord,
-                     i: i32) -> TestResult {
+                     i: u32) -> TestResult {
       let config = Config(vec![dw1.to_owned(),
                                dw2.to_owned()]);
       let (d1, w1) = dw1;

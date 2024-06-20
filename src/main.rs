@@ -38,8 +38,8 @@ fn main() {
 ///
 /// Return an iterator for the most flexibility.
 #[inline]
-fn run_to_seq(start: i32, end: i32)
-                 -> Map<Range<i32>, fn(i32) -> String> {
+fn run_to_seq(start: u32, end: u32)
+                 -> Map<Range<u32>, fn(u32) -> String> {
   (start .. end+1)
     .map(defaults::fizzbuzzer)
 }

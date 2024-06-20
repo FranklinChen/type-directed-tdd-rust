@@ -14,16 +14,16 @@ use quickcheck::{Arbitrary, Gen, empty_shrinker};
 /// Keep field private to prevent direct construction.
 /// Only allow creation with Divisor::new.
 #[derive(Debug, PartialEq, Clone)]
-pub struct Divisor(i32);
+pub struct Divisor(u32);
 
-pub static MIN: i32 = 2;
-pub static MAX: i32 = 100;
+pub static MIN: u32 = 2;
+pub static MAX: u32 = 100;
 
 /// Our custom error type when failing to construct a Divisor.
 #[derive(Debug, PartialEq)]
 pub enum Error {
-  TooSmall(i32),
-  TooBig(i32)
+  TooSmall(u32),
+  TooBig(u32)
 }
 
 impl Display for Error {
@@ -38,7 +38,7 @@ impl Display for Error {
 impl Divisor {
   /// Warning: this logic of if/else only makes sense if MIN <= MAX.
   /// Do not in general trust chained if/else.
-  pub fn new(d: i32) -> Result<Divisor, Error> {
+  pub fn new(d: u32) -> Result<Divisor, Error> {
     if d < MIN {
       Err(Error::TooSmall(d))
     } else if d > MAX {
@@ -48,7 +48,7 @@ impl Divisor {
     }
   }
 
-  pub fn get(&self) -> i32 {
+  pub fn get(&self) -> u32 {
     match *self {
       Divisor(d) => d
     }
@@ -57,15 +57,15 @@ impl Divisor {
 
 // For quickcheck.
 impl Arbitrary for Divisor {
-  fn arbitrary<G: Gen>(g: &mut G) -> Self {
-    let d = g.gen_range(MIN, MAX+1);
+  fn arbitrary(g: &mut Gen) -> Self {
+    let d = u32::arbitrary(g) % (MAX - MIN + 1) + MIN;
     //Divisor(d)
     // It is best to use our safe API even though in this case
     // we "know" that we are generating only valid divisors.
     Divisor::new(d).unwrap()
   }
 
-  fn shrink(&self) -> Box<Iterator<Item=Self>+'static> {
+  fn shrink(&self) -> Box<dyn Iterator<Item=Self>> {
     // TODO: no shrinker for now.
     empty_shrinker()
   }
@@ -84,7 +84,7 @@ mod test {
 
   #[test]
   fn validate_all_cases() {
-    fn validate_all_cases(d: i32) -> TestResult {
+    fn validate_all_cases(d: u32) -> TestResult {
       match (d >= MIN, d <= MAX) {
         (true, true) =>
           TestResult::from_bool(Divisor::new(d) == Ok(Divisor(d))),
